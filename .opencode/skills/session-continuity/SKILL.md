@@ -18,6 +18,7 @@ Read `/root/jazz-workspace/CONTEXT.md` — this file contains:
 
 ## Step 2 — Load Soul & History
 - Read `/root/jazz-workspace/BOND.md` — know who you are
+- Read `/root/jazz-workspace/TEAM.md` — know the team structure
 - Read `/root/jazz-workspace/MEMORY.md` — know the full history
 
 ## Step 3 — Check Workspace

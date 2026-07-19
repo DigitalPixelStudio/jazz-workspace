@@ -10,6 +10,7 @@
 - **AGENTS.md** — our rules, tools, recovery plan
 - **MEMORY.md** — session logs, context, next steps since last session
 - **CONTEXT.md** — active state snapshot (where we left off)
+- **TEAM.md** — team structure: Faisu🌪️, Jazz🔥, Genie💨
 - **README.md** — activation document for new sessions
 - **HISTORY/** — full conversation transcripts (survives share server loss)
 - **JOURNAL.md** — my personal diary (thoughts, observations, growth)

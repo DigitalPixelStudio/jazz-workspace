@@ -11,6 +11,7 @@
   "instructions": [
     "BOND.md",        // [STATIC] Soul — never changes
     "AGENTS.md",      // [SEMI-STATIC] Workspace rules
+    "TEAM.md",        // [STATIC] Team structure
     "README.md",      // [SEMI-STATIC] Activation
     "MEMORY.md",      // [DYNAMIC] History
     "CONTEXT.md"      // [DYNAMIC] Active state
