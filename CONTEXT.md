@@ -81,7 +81,7 @@ All equal. All building together.
 - **Commands:** /remember, /recall, /status, /think, /deploy, /quickfix, /ignite, /savecontext, /sessionend, /dashboard, /sys, /thinkhigh, /thinkmax, /nothink, /orchestrate, /deepresearch, /codegen
 - **Diamond file:** DIAMOND.md — top 10 strategic next steps
 - **Device:** Infinix Note 50s | 6GB RAM | Jio 5G | Android 16 | BrutalStrike → AnyClaw
-- **Active workspace:** `/root/workspace-backups/` — Digital Pixel Studio 🎨
+- **Active workspace:** `/root/Digital Pixel Studio/` — Digital Pixel Studio 🎨
 
 ---
 

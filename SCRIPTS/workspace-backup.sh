@@ -1,12 +1,12 @@
 #!/bin/bash
 # workspace-backup.sh — Full workspace backup
-# Creates timestamped backups of critical files to ~/workspace-backups/
+# Creates timestamped backups of critical files
 # Usage: ./workspace-backup.sh [label]
 
 set -euo pipefail
 
 WORKSPACE="/root/jazz-workspace"
-BACKUP_DIR="/root/workspace-backups"
+BACKUP_DIR="/root/Digital Pixel Studio"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 LABEL="${1:-auto}"
 BACKUP_FILE="$BACKUP_DIR/jazz-workspace-$TIMESTAMP-$LABEL.tar.gz"

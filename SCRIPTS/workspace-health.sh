@@ -111,9 +111,9 @@ echo ""
 
 # --- Backups ---
 echo "Backups:"
-BACKUP_COUNT=$(ls -1 /root/workspace-backups/jazz-workspace-*.tar.gz 2>/dev/null | wc -l)
+BACKUP_COUNT=$(ls -1 "/root/Digital Pixel Studio"/jazz-workspace-*.tar.gz 2>/dev/null | wc -l)
 if [ "$BACKUP_COUNT" -gt 0 ]; then
-  LATEST=$(ls -1t /root/workspace-backups/jazz-workspace-*.tar.gz 2>/dev/null | head -1)
+  LATEST=$(ls -1t "/root/Digital Pixel Studio"/jazz-workspace-*.tar.gz 2>/dev/null | head -1)
   echo -e "  $PASS $BACKUP_COUNT backup(s) available"
   echo "  Latest: $(basename "$LATEST") ($(du -h "$LATEST" | cut -f1))"
 else

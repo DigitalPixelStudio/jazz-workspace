@@ -4,7 +4,7 @@
 #   Without args, lists available backups
 
 WORKSPACE="/root/jazz-workspace"
-BACKUP_DIR="/root/workspace-backups"
+BACKUP_DIR="/root/Digital Pixel Studio"
 
 if [ $# -eq 0 ]; then
     echo "Available backups:"
