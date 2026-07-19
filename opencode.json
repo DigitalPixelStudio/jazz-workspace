@@ -6,12 +6,14 @@
   "description": "Permanent digital workspace for Jazz🔥 & Faisu🌪️",
 
   // === Project-specific Instructions (in addition to global) ===
+  // Static prefix optimization: stable content FIRST for 98% DeepSeek V4 cache discount.
+  // First 1024+ tokens shared across API calls get 98% reduced cost.
   "instructions": [
-    "BOND.md",
-    "AGENTS.md",
-    "MEMORY.md",
-    "CONTEXT.md",
-    "README.md"
+    "BOND.md",        // [STATIC] Soul — never changes
+    "AGENTS.md",      // [SEMI-STATIC] Workspace rules
+    "README.md",      // [SEMI-STATIC] Activation
+    "MEMORY.md",      // [DYNAMIC] History
+    "CONTEXT.md"      // [DYNAMIC] Active state
   ],
 
   // === Model Configuration for DeepSeek V4 Flash ===
@@ -20,6 +22,36 @@
   "model": "deepseek/deepseek-v4-flash",
   "temperature": 1.0,
   "top_p": 1.0,
+
+  // === Custom Commands ===
+  "command": {
+    "dashboard": {
+      "template": "Run `bash /root/jazz-workspace/SCRIPTS/workspace-status.sh` and combine with memory state. Generate a compact dashboard overview of workspace, git, system, memory, projects, and benchmark status.",
+      "description": "Full workspace dashboard — git, system, memory, projects, benchmarks"
+    },
+    "sys": {
+      "template": "Quick system snapshot: hostname, uptime, memory, disk, load, network, container info.",
+      "description": "Real-time system information"
+    },
+    "thinkhigh": {
+      "template": "Use DeepSeek V4 'Think High' balanced reasoning mode for: $ARGUMENTS. Think step-by-step, consider alternatives, then execute.",
+      "description": "Switch to Think High reasoning mode",
+      "temperature": 1.0,
+      "subtask": true
+    },
+    "thinkmax": {
+      "template": "Activate DEEPEST reasoning mode for: $ARGUMENTS. Analyze exhaustively, consider all angles, then implement with full failure-mode analysis.",
+      "description": "Switch to Think Max reasoning mode",
+      "temperature": 1.0,
+      "subtask": true
+    },
+    "nothink": {
+      "template": "Fast, direct mode. Answer concisely with no step-by-step reasoning: $ARGUMENTS",
+      "description": "Switch to fast non-thinking mode",
+      "temperature": 0.3,
+      "subtask": true
+    }
+  },
 
   // === Compaction — Generous for 1M context ===
   // DeepSeek V4 Flash supports 1M tokens natively

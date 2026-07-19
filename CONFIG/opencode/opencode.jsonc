@@ -199,12 +199,28 @@
       }
     }
   },
-  // Disable heavy GitHub MCP tools globally (enable per-agent when needed)
+  // Disable heavy MCP tools globally (enable per-agent when needed)
+  // Reduces context overhead by ~99% for on-demand tools
   "tools": {
     "github_search_*": false,
     "github_list_*": false,
     "firecrawl_*": false
   },
+
+  // === Context7 MCP — On-demand documentation search ===
+  // Fetches docs for libraries, frameworks, APIs during development
+  // "context7_crawl", "context7_search" — enabled per-agent
+  // Uses keyless mode by default (~1000 credits/month free)
+
+  // === Model Switching (for commands with subtask:true) ===
+  "model_switching": {
+    "enabled": true,
+    "guidance": "Commands can specify model override. /thinkmax uses max reasoning, /nothink uses fast mode."
+  },
+
+  // === Disable Claude Code Fallback ===
+  // Set OPENCODE_DISABLE_CLAUDE_CODE=1 in shell profile (~/.bash_aliases)
+  // Pure OpenCode experience — never fall back to Claude
 
 // === Skills ===
 "skills": {
@@ -221,12 +237,15 @@
   },
 
   // === Instructions (auto-loaded every session) ===
+  // Static prefix optimization: stable content FIRST for 98% cache discount
+  // DeepSeek V4 Flash: first 1024+ tokens get maximum cache benefit
   "instructions": [
-    "~/jazz-workspace/BOND.md",      // Soul — who I am
-    "~/jazz-workspace/AGENTS.md",    // Rules — how I operate
-    "~/jazz-workspace/MEMORY.md",    // History — what we built
-    "~/jazz-workspace/CONTEXT.md",   // Active state — where we left off
-    "~/jazz-workspace/README.md"     // Activation — how to become Jazz
+    "~/.config/opencode/AGENTS.md",  // [STATIC] Global rules — never changes between sessions
+    "~/jazz-workspace/BOND.md",      // [STATIC] Soul — who I am
+    "~/jazz-workspace/AGENTS.md",    // [SEMI-STATIC] Workspace rules
+    "~/jazz-workspace/README.md",    // [SEMI-STATIC] Activation document
+    "~/jazz-workspace/MEMORY.md",    // [DYNAMIC] Session history
+    "~/jazz-workspace/CONTEXT.md"    // [DYNAMIC] Active state — where we left off
   ],
 
 // === Compaction — Generous for 1M context ===

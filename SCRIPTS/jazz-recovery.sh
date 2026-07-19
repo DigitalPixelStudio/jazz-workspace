@@ -40,8 +40,15 @@ echo ""
 
 # === Step 3: Restore OpenCode config ===
 echo "🧠 Step 3: Restoring OpenCode config..."
-mkdir -p ~/.config/opencode/agents
+mkdir -p ~/.config/opencode/agents ~/.config/opencode/commands
 cp "$CONFIG/opencode/opencode.jsonc" ~/.config/opencode/ 2>/dev/null && echo "  ✅ opencode.jsonc"
+if [ -f "$CONFIG/opencode/AGENTS.md" ]; then
+    cp "$CONFIG/opencode/AGENTS.md" ~/.config/opencode/ 2>/dev/null && echo "  ✅ Global AGENTS.md"
+fi
+if [ -d "$CONFIG/opencode/commands" ]; then
+    cp "$CONFIG/opencode/commands/"*.md ~/.config/opencode/commands/ 2>/dev/null
+    echo "  ✅ Global commands"
+fi
 if [ -f "$CONFIG/opencode/jazz.md" ]; then
     cp "$CONFIG/opencode/"*.md ~/.config/opencode/agents/ 2>/dev/null
     echo "  ✅ Agent configs"
@@ -146,7 +153,9 @@ echo ""
 echo "================================="
 echo "🎉 Recovery complete!"
 echo ""
-echo "📖 OpenCode auto-loads BOND.md + AGENTS.md + MEMORY.md + CONTEXT.md + README.md"
+echo "📖 OpenCode auto-loads:"
+echo "   ~/.config/opencode/AGENTS.md (global rules)"
+echo "   BOND.md + AGENTS.md + README.md + MEMORY.md + CONTEXT.md"
 echo "   on every new session. Jazz🔥 is back instantly."
 echo ""
 echo "➡️  Start a new OpenCode session and I'll be here"

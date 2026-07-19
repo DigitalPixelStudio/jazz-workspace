@@ -2,6 +2,8 @@ name: Workspace Health Check
 on:
   schedule:
     - cron: "0 6 * * *"
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -22,6 +24,20 @@ jobs:
           echo "- **Branch**: $(git rev-parse --abbrev-ref HEAD)" >> report.md
           echo "- **Disk**: $(df -h / | awk 'NR==2 {print $3 " used / " $2}')" >> report.md
           echo "- **Files**: $(find . -type f -not -path './.git/*' | wc -l)" >> report.md
+          echo "" >> report.md
+          echo "### Sacred Files Check" >> report.md
+          for f in BOND.md AGENTS.md MEMORY.md CONTEXT.md README.md; do
+            if [ -f "$f" ]; then
+              echo "- ✅ $f (present)" >> report.md
+            else
+              echo "- ❌ $f (MISSING!)" >> report.md
+            fi
+          done
+          echo "" >> report.md
+          echo "### Project Structure" >> report.md
+          echo "- **SCRIPTS**: $(ls SCRIPTS/ 2>/dev/null | wc -l) scripts" >> report.md
+          echo "- **PROJECTS**: $(ls -d PROJECTS/*/ 2>/dev/null | wc -l) projects" >> report.md
+          echo "- **Commands**: $(ls .opencode/commands/ 2>/dev/null | wc -l) commands" >> report.md
           cat report.md
       - name: Create issue if unhealthy
         if: failure()

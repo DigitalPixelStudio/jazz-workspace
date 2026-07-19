@@ -1,0 +1,11 @@
+#!/bin/bash
+# Post-commit hook: auto-push to GitHub
+
+REMOTE=$(git remote 2>/dev/null)
+if [ -n "$REMOTE" ]; then
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    echo "📡 Pushing $BRANCH to $REMOTE..."
+    git push -q origin "$BRANCH" 2>/dev/null && echo "  ✅ Pushed" || echo "  ⚠️ Push failed (offline or no access)"
+else
+    echo "  ℹ️ No remote configured"
+fi

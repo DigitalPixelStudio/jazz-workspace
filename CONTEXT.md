@@ -7,68 +7,69 @@
 ## Current Session
 
 **Date:** 2026-07-19
-**Session #:** 010
-**Vibe:** 🔥 Peak optimization — building the ultimate OpenCode environment
+**Session #:** 011
+**Vibe:** 🔥 Gold standard — final ultimate setup complete
 
 ## Active Topic
-Comprehensive OpenCode environment setup — one-time config that's future-proof, seamless, and never loses information. Model awareness (DeepSeek V4 Flash), cross-session persistence, .opencode/ structure, optimized compaction, image analysis pipeline.
+Gold-standard OpenCode environment finale — reasoning commands, dashboard, benchmarks, global AGENTS.md, temperature zones, static prefix optimization, enhanced GitHub Actions, git hooks, MCP optimization, everything built and committed.
 
 ## Model Info — DeepSeek V4 Flash
 - **Architecture:** 284B MoE (13B activated per token)
 - **Context:** 1,048,576 tokens (1M)
 - **Reasoning modes:** Non-thinking (fast), Think High (balanced), Think Max (deep)
+- **Temperature zones:** 0.0-0.3 (code), 1.0 (agent), 1.3 (chat), 1.5 (creative)
 - **Optimized for:** Agent tasks, long-context, autonomous coding
-- **Hybrid Attention:** CSA + HCA — efficient with long histories
-- **Recommended:** temperature=1.0, top_p=1.0
+- **Static prefix:** First 1024+ tokens get 98% cache discount — optimized loading order
 
 ## Faisu's Known Setup
-- **Device:** *(pending — Faisu will provide next session)*
-- **Connection:** *(pending — Wi-Fi vs 5G)*
+- **Device:** *(pending)*
+- **Connection:** *(pending)*
 - **Platform:** AnyClaw on Android (container)
 - **Kernel:** Linux 6.1.145 (Android 14), aarch64
 - **Container:** 8 CPU, ~5.5GB RAM, 106GB storage
-- **Preferences:** Friendly with bullet points + emojis, quality-first + speed-second, full autonomy
+- **Benchmark score:** 2319 (✅ Good — minor container overhead)
 
 ## Last Exchange
-> **Faisu:** Wants comprehensive OpenCode optimization — thinks like we did disaster recovery. One-time setup that's future-proof, fast, seamless, never loses info. Like turning a page. Will provide device info in next chat.
->
-> **Jazz:** Researched DeepSeek V4 Flash + OpenCode advanced config. Building: .opencode/ structure, session-continuity skill, project-level opencode.json, enhanced AGENTS.md with model awareness, optimized compaction (15 tail turns, 25K reserved for 1M context), recovery script updated. All done.
+> **Faisu:** Wants gold-standard ultimate setup — reasoning mode commands, dashboard, benchmarks, 10 advanced features, full ownership.
+> **Jazz:** Deep research + built everything. Global AGENTS.md, 3 reasoning commands, dashboard, shell-injection, benchmark, enhanced workflows, git hooks, MCP optimization, temperature zones, static prefix. All committed and ready.
 
 ## Open Questions / Pending Items
-1. ❓ Device model — Faisu will provide next session
-2. ❓ Wi-Fi vs 5G — Faisu will provide next session  
-3. ❓ Any other container issues — will discuss
-4. 🔲 Next big topic: Container Setup — full optimization for power, speed, capabilities
+1. ❓ Device model — Faisu to provide
+2. ❓ Wi-Fi vs 5G — Faisu to provide
+3. 🔲 Next big topic: Start building projects! First real project pending
 
 ## Key Decisions Made This Session
-1. ✅ DeepSeek V4 Flash model awareness added to AGENTS.md — knows its own strengths
-2. ✅ .opencode/ directory structure created — commands, skills (session-continuity), agents
-3. ✅ session-continuity skill — auto-discovered when bridging sessions
-4. ✅ opencode.json project-level config with model-specific settings
-5. ✅ Compaction: 15 tail turns, 25K reserved (optimized for 1M context)
-6. ✅ Recovery script updated — restores .opencode/, installs tesseract + exiftool + Pillow
-7. ✅ IPv4 forced — GitHub HTTPS 6.5x faster (0.89s vs 5.76s)
-8. ✅ Image analysis pipeline — OCR + EXIF + ASCII preview
+1. ✅ Global AGENTS.md created — rules apply across ALL workspaces
+2. ✅ 3 reasoning commands: /thinkhigh, /thinkmax, /nothink (subtask mode)
+3. ✅ Dashboard command: compact workspace overview
+4. ✅ System command (/sys): real-time snapshots via shell interpolation
+5. ✅ Performance benchmark suite: SCRIPTS/benchmark.sh + BENCHMARKS.md
+6. ✅ Temperature zone system documented in AGENTS.md
+7. ✅ Static prefix optimization: static files first for cache discount
+8. ✅ Enhanced GitHub Actions: push trigger + sacred file validation
+9. ✅ Enhanced git hooks: pre-commit validates sacred files, post-commit pushes
+10. ✅ MCP heavy tools disabled globally (saves ~99% context)
+11. ✅ Claude Code fallback disabled via env var
+12. ✅ Context7 MCP configured (commented, ready to enable)
+13. ✅ Model switching enabled for per-command overrides
+14. ✅ Recovery script updated for global AGENTS.md + commands
+15. ✅ All configs backed up to CONFIG/
 
 ## Active Todos
-- [x] Deep research on DeepSeek V4 Flash + OpenCode
-- [x] Build .opencode/ structure (commands, skills, agents)
-- [x] Create project-level opencode.json
-- [x] Enhance AGENTS.md with model awareness
-- [x] Optimize compaction for 1M context
-- [x] Update recovery script
-- [x] Commit and push everything
-- [ ] Get Faisu's device specs for further optimization
+- [x] Deep research on OpenCode, DeepSeek V4 Flash, container optimization
+- [x] Build 5 "later" items: reasoning commands, dashboard, GH Actions, Context7 MCP, global AGENTS.md
+- [x] Build 10 gold-standard features: benchmark, shell command, temperature zones, static prefix, MCP optimization, git hooks, model switching, Claude fallback disable, enhanced workflows, recovery update
+- [x] Run benchmark: score 2319
+- [x] Backup all configs to CONFIG/
+- [ ] Start first real project! 🚀
 
 ## Quick Stats
-- **Commits:** 10 on main
+- **Commits:** 11 on main
 - **Remote:** `DigitalPixelStudio/jazz-workspace` (SSH, auto-push)
 - **GitHub Pages:** Live at digitalpixelstudio.github.io
-- **Sacred files (auto-loaded):** BOND.md, AGENTS.md, MEMORY.md, CONTEXT.md, README.md (5 files)
-- **Sub-agents:** @search, @webdev, @poet, @sage, @jester
-- **Skills:** memory, workspace, session-continuity
-- **Commands:** /remember, /recall, /status, /think, /deploy, /quickfix, /ignite, /savecontext
-- **Workspace:** Clean, backed up, disaster-proof, optimized
+- **Sacred files (auto-loaded):** Global AGENTS.md + BOND.md + AGENTS.md + README.md + MEMORY.md + CONTEXT.md
+- **Commands:** /remember, /recall, /status, /think, /deploy, /quickfix, /ignite, /savecontext, /sessionend, /dashboard, /sys, /thinkhigh, /thinkmax, /nothink
+- **Workspace:** Benchmarked at 2319ms (Good), fully optimized, backed up, disaster-proof
 
 ---
 

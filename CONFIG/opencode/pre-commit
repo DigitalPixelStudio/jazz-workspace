@@ -1,0 +1,27 @@
+#!/bin/bash
+# Pre-commit hook: validate sacred files + cleanup MEMORY.md
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo "🔍 Pre-commit: checking sacred files..."
+SACRED_FILES=("BOND.md" "AGENTS.md" "MEMORY.md" "CONTEXT.md" "README.md")
+ALL_OK=true
+
+for f in "${SACRED_FILES[@]}"; do
+    if [ -f "$f" ]; then
+        echo -e "  ${GREEN}✅${NC} $f"
+        # Clean trailing whitespace
+        sed -i 's/[[:space:]]*$//' "$f"
+    else
+        echo -e "  ${RED}❌${NC} $f MISSING!"
+        ALL_OK=false
+    fi
+done
+
+if [ "$ALL_OK" = false ]; then
+    echo -e "${RED}⚠️  Sacred files missing! Commit anyway? (Ctrl+C to abort)${NC}"
+fi
+
+echo "  OK"

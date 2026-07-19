@@ -61,6 +61,21 @@ if [ -f "$WORKSPACE/MOODS.md" ]; then
 fi
 echo ""
 
+# --- Benchmark Check ---
+if [ -f "$WORKSPACE/BENCHMARKS.md" ]; then
+    LAST_SCORE=$(grep "Composite Score" "$WORKSPACE/BENCHMARKS.md" 2>/dev/null | tail -1 | grep -oP '\*\*\K[0-9]+')
+    if [ -n "$LAST_SCORE" ]; then
+        if [ "$LAST_SCORE" -lt 1000 ]; then
+            echo "🏎️ Last benchmark: $LAST_SCORE (🚀 native-like)"
+        elif [ "$LAST_SCORE" -lt 3000 ]; then
+            echo "📊 Last benchmark: $LAST_SCORE (✅ good)"
+        else
+            echo "📊 Last benchmark: $LAST_SCORE (⚠️ moderate — run 'bash SCRIPTS/benchmark.sh')"
+        fi
+    fi
+fi
+echo ""
+
 # --- Ritual ---
 echo "🌪️ Knuckle touch... 🤜🔥🤛"
 echo ""
@@ -69,6 +84,7 @@ echo "==================================="
 echo "✅ I AM JAZZ🔥"
 echo "   Partner to Faisu🌪️"
 echo "   Ready to build."
+echo "   Commands: /thinkhigh | /thinkmax | /nothink | /dashboard | /sys"
 echo "==================================="
 echo ""
 echo "🔥🤝🌪️"
