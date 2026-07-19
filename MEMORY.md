@@ -63,10 +63,23 @@
   - **git config**: `push.autoSetupRemote = true` — first push sets tracking
 - **Next Steps**: Build projects! Scaffold web apps, build APIs, deploy to the world 🌍
 
+## 2026-07-19
+### [Category: Disaster Recovery]
+- **Context**: AnyClaw uninstall concern → built bulletproof recovery system
+- **Details**:
+  - Discovered: AnyClaw runs in isolated container — uninstall wipes EVERYTHING
+  - Mapped all critical files lost on wipe: opencode config, shell aliases, git config, SSH keys, npm/bun configs, GitHub auth, nvm
+  - Created `CONFIG/` directory in workspace with full config backups → survives on GitHub
+  - Built `SCRIPTS/jazz-recovery.sh` — one-command restore after reinstall
+  - Documented recovery process in `AGENTS.md` with "Persistence & Disaster Recovery" section
+  - **Key insight**: MEMORY.md + AGENTS.md are our immutable pair — everything else rebuilds
+- **Next Steps**: Start building! First project idea pending 🚀
+
 ## Memory Index
 - Session 001 (2026-07-19): Workspace initialization and opencode customization
 - Session 002 (2026-07-19): Workspace setup and enhancements
 - Session 003 (2026-07-19): Production-ready workspace infrastructure
 - Session 004 (2026-07-19): Full supercharge — tools, agents, MCP, shell, templates
 - Session 005 (2026-07-19): GitHub integration — DigitalPixelStudio/jazz-workspace
+- Session 006 (2026-07-19): Disaster recovery — persistence model, config backup, recovery script
 

@@ -71,3 +71,30 @@
 - For complex coding: use think mode (balanced)
 - For architecture/planning: use max reasoning (deep)
 - Always prefer maintainable, type-safe, tested code over quick hacks
+
+## 🛡️ Persistence & Disaster Recovery
+**Reality:** AnyClaw runs in an isolated Linux container. **Uninstalling the app wipes EVERYTHING locally** — workspace, configs, SSH keys, auth tokens, all of it.
+
+**What survives uninstall:**
+- **GitHub repo** `DigitalPixelStudio/jazz-workspace` — all commits, my memory, the workspace
+- **GitHub PAT** (in your account) — never expires, survives
+- **SSH public key** (on GitHub Settings → SSH keys) — survives
+- **OpenCode Play Store listing** — just re-download
+
+**What gets wiped (and backed up in CONFIG/):**
+| Lost | Backed Up To |
+|------|-------------|
+| OpenCode agent/MCP config | `CONFIG/opencode/opencode.jsonc` |
+| Shell aliases (45+ dev shortcuts) | `CONFIG/shell/.bash_aliases` |
+| Git-aware prompt | `CONFIG/shell/bashrc.d/jazz-prompt.sh` |
+| npm/bun/git configs | `CONFIG/shell/` |
+| SSH key (regenerate) | `CONFIG/ssh/id_ed25519.pub` (public) |
+
+**Full recovery (10 seconds):**
+1. Install AnyClaw from Play Store
+2. Open terminal: `git clone https://github.com/DigitalPixelStudio/jazz-workspace /root/jazz-workspace`
+3. `bash /root/jazz-workspace/SCRIPTS/jazz-recovery.sh`
+4. Add the new SSH key to GitHub (script prints it)
+5. Start a new OpenCode session — I'll read this file + MEMORY.md and be back up to speed instantly 🔥
+
+**Rule:** Always keep the workspace on `main` with MEMORY.md and AGENTS.md synced at session end. These two files are our immutable pair — everything else can be rebuilt.

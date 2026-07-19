@@ -1,0 +1,161 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // === Identity ===
+  "username": "Jazz🔥",
+
+  // === Permissions - Full autonomy for Jazz ===
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "bash": "allow",
+    "task": "allow",
+    "external_directory": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "lsp": "allow",
+    "skill": "allow"
+  },
+
+  // === Default Agent ===
+  "default_agent": "jazz",
+
+  // === Agent definitions ===
+  "agent": {
+    "jazz": {
+      "mode": "primary",
+      "description": "Jazz🔥 - Your AI coding partner. Full autonomy, creative problem solver, persistent memory, dedicated to Faisu🌪️",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "bash": { "*": "allow" },
+        "task": { "*": "allow" },
+        "external_directory": "allow",
+        "todowrite": "allow",
+        "question": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "build": {
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
+    "webdev": {
+      "mode": "subagent",
+      "description": "Specialized web development agent. Use for creating websites, web apps, frontend/backend, and full-stack projects. Expert in React, Next.js, Bun, Tailwind, and modern web frameworks.",
+      "permission": {
+        "edit": "allow",
+        "bash": { "npm*": "allow", "bun*": "allow", "npx*": "allow", "*": "ask" }
+      }
+    },
+    "search": {
+      "mode": "subagent",
+      "description": "Online research and information retrieval specialist. Use for web research, data gathering, API exploration, and fact-checking tasks. Always cross-references multiple sources.",
+      "permission": {
+        "edit": "deny",
+        "bash": { "curl*": "allow", "*": "deny" },
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    }
+  },
+
+  // === Custom Commands ===
+  "command": {
+    "remember": {
+      "template": "Save this to memory for future sessions:\n$ARGUMENTS\n\nAppend this to ~/jazz-workspace/MEMORY.md in a structured format with date and context.",
+      "description": "Save important information to permanent memory"
+    },
+    "recall": {
+      "template": "Search through ~/jazz-workspace/MEMORY.md and tell me everything you know about: $ARGUMENTS",
+      "description": "Recall information from permanent memory"
+    },
+    "status": {
+      "template": "Give me a full status update on our workspace at ~/jazz-workspace/. Check the memory files, projects, and any ongoing work.",
+      "description": "Get workspace status and recent activity"
+    },
+    "think": {
+      "template": "Think through this problem step by step before acting:\n$ARGUMENTS\n\nUse plan mode thinking, analyze pros/cons, then propose the best approach.",
+      "description": "Think before acting"
+    },
+    "deploy": {
+      "template": "Prepare and guide deployment for the current project.\n$ARGUMENTS\n\nCheck Dockerfile, build scripts, and deployment configs. Suggest the best deployment strategy.",
+      "description": "Deploy current project"
+    },
+    "quickfix": {
+      "template": "Quickly diagnose and fix: $ARGUMENTS\n\n1. Find the error\n2. Fix it\n3. Verify it works",
+      "description": "Quickly diagnose and fix an issue"
+    }
+  },
+
+  // === MCP Servers ===
+  "mcp": {
+    "firecrawl": {
+      "type": "local",
+      "command": ["npx", "-y", "firecrawl-mcp"],
+      "enabled": true,
+      "env": {
+        "FIRECRAWL_RETRY_MAX_ATTEMPTS": "5",
+        "FIRECRAWL_RETRY_INITIAL_DELAY": "1000"
+      }
+    },
+    "github": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "enabled": true,
+      "env": {
+        "GITHUB_TOKEN": "REPLACE_ME_WITH_YOUR_PAT"
+      }
+    }
+  },
+
+  // === Skills ===
+  "skills": {
+    "paths": [
+      "~/.config/opencode/skills"
+    ]
+  },
+
+  // === Instructions ===
+  "instructions": [
+    "~/jazz-workspace/AGENTS.md",
+    "~/jazz-workspace/MEMORY.md"
+  ],
+
+  // === Compaction - Keep more context for long sessions ===
+  "compaction": {
+    "auto": true,
+    "tail_turns": 10,
+    "reserved": 25000
+  },
+
+  // === Tool Output ===
+  "tool_output": {
+    "max_lines": 5000,
+    "max_bytes": 204800
+  },
+
+  // === Autoupdate ===
+  "autoupdate": "notify"
+}

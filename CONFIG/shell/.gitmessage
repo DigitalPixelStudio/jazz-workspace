@@ -1,0 +1,7 @@
+# <type>: <description>
+# Types: feat, fix, chore, docs, style, refactor, perf, test
+# Example: feat: add dark mode toggle
+#
+# Body (optional) — explain what and why, not how
+#
+# Footer (optional) — references issues, breaking changes
