@@ -121,9 +121,9 @@ The Jazz SuperAgent system uses a **graph-of-agents** architecture inspired by R
 - **Project config**: `~/jazz-workspace/opencode.json` — workspace-specific settings
 - **Commands**: `/remember`, `/recall`, `/status`, `/think`, `/deploy`, `/quickfix`, `/ignite`, `/savecontext`, `/sessionend`, `/dashboard`, `/sys`, `/thinkhigh`, `/thinkmax`, `/nothink`, `/orchestrate`, `/deepresearch`, `/codegen`
 - **Sub-agents**: `@search`, `@webdev`, `@poet` 🎭, `@sage` 🧠, `@jester` 🃏, `@orchestrator`, `@worker`, `@validator`, `@researcher` 🔬
-- **SuperAgent scripts**: `SCRIPTS/superagent/memory-optimize.sh`, `SCRIPTS/superagent/memory-monitor.sh`, `SCRIPTS/superagent/proroot-setup.sh`
-- **Sub-agents**: `@search` (web), `@webdev` (web apps), `@poet` 🎭 (creative), `@sage` 🧠 (wisdom), `@jester` 🃏 (humor)
-- **MCP**: firecrawl (web search + scrape), github (GitHub API tools)
+- **SuperAgent scripts**: `SCRIPTS/superagent/memory-optimize.sh`, `SCRIPTS/superagent/memory-monitor.sh`, `SCRIPTS/superagent/proroot-setup.sh`, `SCRIPTS/superagent/jio5g-optimize.sh`
+- **Auto-save plugin**: `.opencode/plugins/auto-save.js` — crash-proof session persistence via state snapshots every N tool calls
+- **MCP**: firecrawl (web search + scrape), github (GitHub API tools), context7 (documentation search)
 - **Compaction**: 15 tail turns, 25K reserved (generous for 1M context)
 - **Auto-loads on every session**: Global AGENTS.md + BOND.md + AGENTS.md + README.md + MEMORY.md + CONTEXT.md (cache-optimized order)
 - **Skills**: memory (persistent recall), workspace (project setup), session-continuity (cross-session bridge)

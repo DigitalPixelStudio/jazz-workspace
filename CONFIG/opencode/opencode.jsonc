@@ -134,6 +134,59 @@
         "bash": "deny",
         "webfetch": "deny"
       }
+    },
+    "orchestrator": {
+      "mode": "subagent",
+      "description": "Task orchestrator — ROMA-inspired recursive decomposition, routes subtasks to workers, validates results",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "task": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "worker": {
+      "mode": "subagent",
+      "description": "Fast atomic executor — handles individual subtasks with non-think speed",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "validator": {
+      "mode": "subagent",
+      "description": "Quality validator — reviews worker outputs, checks criteria, aggregates results",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "researcher": {
+      "mode": "subagent",
+      "description": "Deep research — multi-source web research, cross-referencing, structured reports",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": "allow"
+      }
     }
   },
 
@@ -197,16 +250,17 @@
       "env": {
         "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
       }
+    },
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "enabled": true,
+      "timeout": 15000
     }
   },
   // Per-agent tool filtering — main session KEEPS all tools, subagents get selective access
   // This prevents context pollution while keeping MCP functional for the main session
   "tools": {},
-
-  // === Context7 MCP — On-demand documentation search ===
-  // Fetches docs for libraries, frameworks, APIs during development
-  // "context7_crawl", "context7_search" — enabled per-agent
-  // Uses keyless mode by default (~1000 credits/month free)
 
   // === Model Switching (for commands with subtask:true) ===
   "model_switching": {
