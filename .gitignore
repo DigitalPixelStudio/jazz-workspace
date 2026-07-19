@@ -1,0 +1,9 @@
+# Workspace gitignore
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+backups/
+.tmp/
