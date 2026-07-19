@@ -199,13 +199,9 @@
       }
     }
   },
-  // Disable heavy MCP tools globally (enable per-agent when needed)
-  // Reduces context overhead by ~99% for on-demand tools
-  "tools": {
-    "github_search_*": false,
-    "github_list_*": false,
-    "firecrawl_*": false
-  },
+  // Per-agent tool filtering — main session KEEPS all tools, subagents get selective access
+  // This prevents context pollution while keeping MCP functional for the main session
+  "tools": {},
 
   // === Context7 MCP — On-demand documentation search ===
   // Fetches docs for libraries, frameworks, APIs during development

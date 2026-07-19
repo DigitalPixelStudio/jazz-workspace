@@ -1,33 +1,36 @@
 #!/bin/bash
-# analyze-image.sh — Easy wrapper for analyze-image.py
-# Usage:
-#   analyze-image.sh screenshot.png        # local file
-#   analyze-image.sh https://imgur.com/x   # URL
-#   analyze-image.sh                       # paste base64
-#   analyze-image.sh --help
+# analyze-image.sh — Image analysis wrapper for Jazz🔥
+# Usage: ./analyze-image.sh <image_path_or_url>
+# Dependencies: tesseract-ocr, exiftool, python3-pil
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PYTHON_SCRIPT="$SCRIPT_DIR/analyze-image.py"
+set -euo pipefail
 
-if [ ! -f "$PYTHON_SCRIPT" ]; then
-    echo "❌ analyze-image.py not found at $PYTHON_SCRIPT"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <image_path_or_url>"
+    echo ""
+    echo "Examples:"
+    echo "  $0 screenshot.png           # Local file"
+    echo "  $0 https://imgur.com/x.png  # Remote URL"
     exit 1
 fi
 
-case "$1" in
-    ""|"-")
-        echo "📸 Paste base64 image data (CTRL+D when done):"
-        python3 "$PYTHON_SCRIPT" -
-        ;;
-    --help|-h)
-        echo "Analyze an image with OCR + metadata + ASCII preview"
-        echo ""
-        echo "  analyze-image.sh image.png    # local file"
-        echo "  analyze-image.sh https://...  # URL"
-        echo "  analyze-image.sh              # paste base64"
-        echo "  analyze-image.sh --help       # this help"
-        ;;
-    *)
-        python3 "$PYTHON_SCRIPT" "$1"
-        ;;
-esac
+IMAGE="$1"
+
+# Check dependencies
+DEPS="tesseract exiftool python3"
+for dep in $DEPS; do
+    if ! command -v "$dep" &>/dev/null; then
+        echo "❌ Missing dependency: $dep"
+        echo "   Install with: apt-get install tesseract-ocr libimage-exiftool-perl python3-pil"
+        exit 1
+    fi
+done
+
+# Check Python PIL
+python3 -c "from PIL import Image" 2>/dev/null || {
+    echo "❌ Missing Python PIL"
+    echo "   Install with: pip install Pillow"
+    exit 1
+}
+
+exec python3 "$(dirname "$0")/analyze-image.py" "$IMAGE"

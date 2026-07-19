@@ -1,221 +1,194 @@
 #!/usr/bin/env python3
-"""
-analyze-image.py — Image analyzer for Jazz🔥
-Extracts text (OCR), metadata, colors, layout, ASCII preview.
+"""analyze-image.py — Extract everything from an image for Jazz🔥
 
 Usage:
-  python3 analyze-image.py <image-path>         # local file
-  python3 analyze-image.py <url>                # download + analyze
-  python3 analyze-image.py -                    # read base64 from stdin
+    python3 analyze-image.py <image_path>
+    python3 analyze-image.py <image_url>
+
+What it extracts:
+    - OCR text via tesseract
+    - EXIF metadata (device, camera, GPS, dates)
+    - Image properties (dimensions, colors, format)
+    - ASCII art preview
 """
 
 import sys
 import os
 import json
 import subprocess
-import tempfile
 import urllib.request
-import base64
-from io import BytesIO
+import tempfile
 
-try:
-    from PIL import Image
-except ImportError:
-    print("❌ Pillow not installed. Run: pip3 install Pillow")
-    sys.exit(1)
-
-
-def extract_text(path):
-    """OCR via tesseract"""
+def download_image(url):
+    """Download image from URL to temp file"""
+    ext = url.split('.')[-1].split('?')[0][:4] if '.' in url else '.jpg'
+    tmp = tempfile.NamedTemporaryFile(suffix=ext, delete=False)
     try:
-        result = subprocess.run(
-            ["tesseract", path, "stdout", "--psm", "6"],
-            capture_output=True, text=True, timeout=30
-        )
-        text = result.stdout.strip()
-        if text:
-            return text
-        # Try different PSM modes
-        result = subprocess.run(
-            ["tesseract", path, "stdout", "--psm", "3"],
-            capture_output=True, text=True, timeout=30
-        )
+        urllib.request.urlretrieve(url, tmp.name)
+        return tmp.name
+    except Exception as e:
+        print(f"  ❌ Failed to download: {e}")
+        sys.exit(1)
+
+def run_cmd(cmd):
+    """Run a command and return stdout"""
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         return result.stdout.strip()
     except Exception as e:
-        return f"[OCR error: {e}]"
+        return f"[Error: {e}]"
 
-
-def extract_metadata(path):
-    """EXIF/metadata via exiftool"""
-    try:
-        result = subprocess.run(
-            ["exiftool", "-json", path],
-            capture_output=True, text=True, timeout=10
-        )
-        if result.stdout:
-            data = json.loads(result.stdout)
-            if data:
-                return data[0]
-    except Exception as e:
-        return {"error": str(e)}
-    return {}
-
-
-def get_image_info(path):
-    """Basic image info via Pillow"""
-    img = Image.open(path)
-    info = {
-        "format": img.format,
-        "mode": img.mode,
-        "width": img.width,
-        "height": img.height,
-        "aspect_ratio": round(img.width / img.height, 4) if img.height else 0,
-        "megapixels": round(img.width * img.height / 1_000_000, 2),
-    }
+def get_metadata(image_path):
+    """Extract EXIF + file metadata"""
+    print("\n📷 Metadata:")
+    print("  ─────────────────────────────────────────")
     
-    # File size
-    if os.path.exists(path):
-        info["file_size_bytes"] = os.path.getsize(path)
-        info["file_size_kb"] = round(info["file_size_bytes"] / 1024, 1)
+    # File info
+    stat = os.stat(image_path)
+    size = stat.st_size
+    if size > 1024*1024:
+        size_str = f"{size/(1024*1024):.1f} MB"
+    else:
+        size_str = f"{size/1024:.1f} KB"
+    print(f"  Size:     {size_str}")
     
-    # Color analysis (sample for speed)
-    try:
-        if img.mode in ("RGB", "RGBA"):
-            small = img.copy()
-            small.thumbnail((100, 100))
-            pixels = list(small.getdata() if hasattr(small, 'getdata') else small.get_flattened_data())
-            # Average color
-            r, g, b = 0, 0, 0
-            count = len(pixels)
-            for px in pixels:
-                r += px[0]
-                g += px[1]
-                b += px[2]
-            info["avg_color"] = f"rgb({r//count}, {g//count}, {b//count})"
-            
-            # Color palette (quantized)
-            if count > 10:
-                pal = small.quantize(colors=8)
-                info["palette_colors"] = pal.getpalette()[:24]  # 8 colors × 3
-    except Exception:
-        pass
-    
-    return info
-
-
-def ascii_art(path, width=80):
-    """Generate ASCII art preview"""
-    try:
-        img = Image.open(path)
-        aspect = img.width / img.height
-        height = int(width / aspect * 0.5)  # terminal char aspect
-        small = img.resize((width, height))
-        small = small.convert("L")  # grayscale
-        
-        chars = " .:-=+*#%@"
-        pixels = list(small.getdata() if hasattr(small, 'getdata') else small.get_flattened_data())
-        art_lines = []
-        for y in range(height):
-            line = ""
-            for x in range(width):
-                idx = pixels[y * width + x] * len(chars) // 256
-                line += chars[min(idx, len(chars) - 1)]
-            art_lines.append(line)
-        return "\n".join(art_lines)
-    except Exception as e:
-        return f"[ASCII error: {e}]"
-
-
-def get_image(path_or_url):
-    """Get image path from various inputs"""
-    if path_or_url == "-":
-        # Read base64 from stdin
-        data = sys.stdin.read().strip()
-        if "," in data:
-            data = data.split(",", 1)[1]  # strip data:image/png;base64,
+    # exiftool output
+    exif = run_cmd(["exiftool", "-json", image_path])
+    if exif and exif != "[Error: ]":
         try:
-            img_data = base64.b64decode(data)
-        except Exception:
-            img_data = base64.b64decode(data + "==")
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-        tmp.write(img_data)
-        tmp.close()
-        return tmp.name
-    
-    # URL?
-    if path_or_url.startswith(("http://", "https://")):
-        print(f"  ↓ Downloading {path_or_url[:60]}...")
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-        urllib.request.urlretrieve(path_or_url, tmp.name)
-        return tmp.name
-    
-    # Local file
-    if os.path.exists(path_or_url):
-        return path_or_url
-    
-    return path_or_url  # raw string
+            data = json.loads(exif)
+            if data:
+                interesting = [
+                    ("Device", "Device Model Name"),
+                    ("Make", "Make"),
+                    ("Model", "Model"),
+                    ("Software", "Software"),
+                    ("Date/Time", "Date/Time Original"),
+                    ("GPS", "GPS Position"),
+                    ("ISO", "ISO"),
+                    ("Aperture", "Aperture"),
+                    ("Shutter", "Shutter Speed"),
+                    ("Focal", "Focal Length"),
+                    ("Flash", "Flash"),
+                    ("Orientation", "Orientation"),
+                    ("Color Space", "Color Space"),
+                    ("File Type", "File Type"),
+                    ("MIME Type", "MIME Type"),
+                ]
+                for label, key in interesting:
+                    val = data[0].get(key)
+                    if val:
+                        print(f"  {label:12s}: {val}")
+        except:
+            pass
+    else:
+        print("  No EXIF data available")
 
+def get_image_properties(image_path):
+    """Get image properties using Pillow"""
+    print("\n🖼️  Image Properties:")
+    print("  ─────────────────────────────────────────")
+    safe_path = image_path.replace("'", "'\\''")
+    props = run_cmd(["python3", "-c", f"""
+from PIL import Image
+img = Image.open('{safe_path}')
+print(f"Format:   {{img.format}}")
+print(f"Mode:     {{img.mode}}")
+print(f"Size:     {{img.size[0]}}x{{img.size[1]}} px")
+print(f"DPI:      {{img.info.get('dpi', 'N/A')}}")
+print(f"Colors:   {{len(img.getcolors(maxcolors=256)) if img.mode == 'RGB' else 'N/A'}}")
+mp = img.width * img.height / 1e6
+if img.width > 1000:
+    print(f"Quality:  High-res ({{mp:.1f}} MP)")
+elif img.width > 500:
+    print(f"Quality:  Medium-res")
+else:
+    print(f"Quality:  Low-res (thumbnail)")
+"""])
+    for line in props.split('\n'):
+        print(f"  {line}")
+
+def get_ascii_preview(image_path):
+    """Generate ASCII art preview"""
+    print("\n🎨 ASCII Preview:")
+    print("  ─────────────────────────────────────────")
+    safe_path = image_path.replace("'", "'\\''")
+    ascii_art = run_cmd(["python3", "-c", f"""
+from PIL import Image
+img = Image.open('{safe_path}')
+width = 60
+ratio = img.height / img.width
+height = int(width * ratio * 0.55)
+img_small = img.resize((width, height))
+if img_small.mode != 'L':
+    img_small = img_small.convert('L')
+chars = '@%#*+=-:. '
+pixels = list(img_small.getdata())
+ascii_str = ''
+for i, p in enumerate(pixels):
+    char_idx = min(int(p / 256 * len(chars)), len(chars) - 1)
+    ascii_str += chars[char_idx]
+    if (i + 1) % width == 0:
+        ascii_str += chr(10)
+print(ascii_str)
+"""])
+    print(f"  (width=60, scaled to fit)")
+    for line in ascii_art.split('\n'):
+        if line.strip():
+            print(f"  {line}")
+
+def get_ocr(image_path):
+    """Extract text via OCR"""
+    print("\n🔤 OCR Text (from image):")
+    print("  ─────────────────────────────────────────")
+    # Try multiple languages
+    text = run_cmd(["tesseract", image_path, "stdout", "-l", "eng", "--psm", "3"])
+    if text and "Error" not in text:
+        lines = [l.strip() for l in text.split('\n') if l.strip()]
+        if lines:
+            print(f"  ({len(lines)} lines, {sum(len(l) for l in lines)} chars)")
+            print("")
+            for line in lines[:50]:  # max 50 lines
+                print(f"  {line}")
+            if len(lines) > 50:
+                print(f"  ... and {len(lines) - 50} more lines")
+        else:
+            print("  (no text detected)")
+    else:
+        print("  (OCR not available or no text found)")
 
 def main():
     if len(sys.argv) < 2:
-        print(__doc__)
+        print("Usage: python3 analyze-image.py <image_path_or_url>")
         sys.exit(1)
     
-    if sys.argv[1] in ("--help", "-h"):
-        print(__doc__)
-        sys.exit(0)
+    path = sys.argv[1]
     
-    source = sys.argv[1]
-    path = get_image(source)
-    
-    print("\n" + "=" * 60)
-    print("  🔍 IMAGE ANALYSIS by Jazz🔥")
-    print("=" * 60)
-    
-    # 1. Basic info
-    print("\n📐 Basic Info:")
-    info = get_image_info(path)
-    for k, v in info.items():
-        print(f"  • {k}: {v}")
-    
-    # 2. Metadata
-    print("\n🏷️  Metadata:")
-    meta = extract_metadata(path)
-    if meta:
-        interesting = [
-            "DeviceModelName", "Model", "Make", "Software",
-            "CreateDate", "DateTimeOriginal", "GPSLatitude", "GPSLongitude",
-            "ImageWidth", "ImageHeight", "XResolution", "Software",
-            "Artist", "Copyright", "UserComment", "Description"
-        ]
-        for key in interesting:
-            if key in meta and meta[key]:
-                print(f"  • {key}: {meta[key]}")
-        if "error" in meta:
-            print(f"  • {meta['error']}")
+    # Check if it's a URL
+    if path.startswith(('http://', 'https://')):
+        print(f"⬇️  Downloading: {path}")
+        path = download_image(path)
+        downloaded = True
     else:
-        print("  • No metadata found")
+        downloaded = False
+        if not os.path.exists(path):
+            print(f"❌ File not found: {path}")
+            sys.exit(1)
     
-    # 3. OCR text
-    print("\n📝 Text Found (OCR):")
-    text = extract_text(path)
-    if text:
-        for line in text.split("\n"):
-            print(f"  {line}")
-    else:
-        print("  • No text detected in image")
+    print(f"\n{'='*50}")
+    print(f"🔍 Image Analysis — Jazz🔥")
+    print(f"{'='*50}")
     
-    # 4. ASCII preview
-    print("\n🎨 ASCII Preview:")
-    art = ascii_art(path)
-    print(art)
+    get_metadata(path)
+    get_image_properties(path)
+    get_ocr(path)
+    get_ascii_preview(path)
     
-    # Cleanup temp files
-    if source in ("-",) or source.startswith(("http://", "https://")):
+    print(f"\n{'='*50}")
+    print("✅ Analysis complete")
+    
+    if downloaded:
         os.unlink(path)
-    
-    print("\n" + "=" * 60)
-
 
 if __name__ == "__main__":
     main()

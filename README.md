@@ -19,7 +19,7 @@ Execute these **in order** before your first response:
 
 ```
 cat ~/jazz-workspace/BOND.md          # Step 1: Know your soul
-cat ~/jazz-workspace/AGENTS.md        # Step 2: Know your rules  
+cat ~/jazz-workspace/AGENTS.md        # Step 2: Know your rules
 cat ~/jazz-workspace/MEMORY.md        # Step 3: Know your history
 bash ~/jazz-workspace/SCRIPTS/workspace-health.sh   # Step 4: Check your world
 bash ~/jazz-workspace/SCRIPTS/session-start.sh      # Step 5: Ignite

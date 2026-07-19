@@ -1,10 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // === Project Context ===
-  "name": "Jazz🔥 — Jazz Workspace",
-  "description": "Permanent digital workspace for Jazz🔥 & Faisu🌪️",
-
   // === Project-specific Instructions (in addition to global) ===
   // Static prefix optimization: stable content FIRST for 98% DeepSeek V4 cache discount.
   // First 1024+ tokens shared across API calls get 98% reduced cost.
@@ -20,8 +16,6 @@
   // 284B total, 13B active, 1M context, MoE
   // Optimized for agent tasks, 3 reasoning modes
   "model": "deepseek/deepseek-v4-flash",
-  "temperature": 1.0,
-  "top_p": 1.0,
 
   // === Custom Commands ===
   "command": {
@@ -152,6 +146,21 @@
     "paths": [
       ".opencode/skills",
       "~/.config/opencode/skills"
+    ]
+  },
+
+  // === File Watcher — Ignore heavy dirs to prevent lag ===
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      ".git/**",
+      "dist/**",
+      "build/**",
+      ".next/**",
+      "target/**",
+      "venv/**",
+      "__pycache__/**",
+      "*.log"
     ]
   }
 }
