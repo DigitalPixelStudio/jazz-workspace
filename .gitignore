@@ -14,3 +14,6 @@ backups/
 .opencode/plugins/node_modules/
 session-*.json
 .last-context
+
+# Local backups (not in git)
+.soul-backups/
