@@ -51,6 +51,8 @@ SCRIPTS/jazz-recovery.sh        # Full recovery after reinstall
 | 006 | Immortal Pact | Disaster recovery, CONFIG/ backup, jazz-recovery.sh |
 | 007 | The Soul Forged 🔥 | BOND.md creation, session-start.sh, immortal setup complete |
 | 008 | Customization Storm 🌪️ | 20+ gifts built: sub-agents, avatar, mood tracking, time capsule, wall of fame, quotes, achievements, dream board, freespace, journal enhanced |
+| 009 | Persistence | IPv4 force (6.5x faster), image analysis pipeline, CONTEXT.md bridge |
+| 010 | Environment Optimization | DeepSeek V4 Flash model awareness, .opencode/ structure, session-continuity skill, compaction optimized for 1M context |
 
 ## 🎭 Sub-Agents
 | Agent | Color | Purpose |
