@@ -7,8 +7,6 @@
 // === Model — DeepSeek V4 Flash ===
 // 284B MoE (13B active), 1M context, optimized for agent tasks
 "model": "deepseek/deepseek-v4-flash",
-"temperature": 1.0,
-"top_p": 1.0,
 
   // === Permissions - Full autonomy for Jazz ===
   "permission": {
@@ -262,12 +260,6 @@
   // This prevents context pollution while keeping MCP functional for the main session
   "tools": {},
 
-  // === Model Switching (for commands with subtask:true) ===
-  "model_switching": {
-    "enabled": true,
-    "guidance": "Commands can specify model override. /thinkmax uses max reasoning, /nothink uses fast mode."
-  },
-
   // === Disable Claude Code Fallback ===
   // Set OPENCODE_DISABLE_CLAUDE_CODE=1 in shell profile (~/.bash_aliases)
   // Pure OpenCode experience — never fall back to Claude
@@ -280,10 +272,11 @@
     ]
   },
 
-  // === Custom Formatters (Prettier) ===
+  // === Custom Formatters ===
 "formatter": {
-    "enabled": true,
-    "command": ["prettier", "--write", "--ignore-unknown"]
+    "prettier": {
+      "command": ["prettier", "--write", "--ignore-unknown"]
+    }
   },
 
   // === Instructions (auto-loaded every session) ===

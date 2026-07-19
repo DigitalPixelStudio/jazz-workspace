@@ -20,8 +20,6 @@
   // 284B total, 13B active, 1M context, MoE
   // Optimized for agent tasks, 3 reasoning modes
   "model": "deepseek/deepseek-v4-flash",
-  "temperature": 1.0,
-  "top_p": 1.0,
 
   // === Custom Commands ===
   "command": {
@@ -62,10 +60,11 @@
     "reserved": 25000
   },
 
-  // === Custom Formatters (Prettier) ===
+  // === Custom Formatters ===
   "formatter": {
-    "enabled": true,
-    "command": ["prettier", "--write", "--ignore-unknown"]
+    "prettier": {
+      "command": ["prettier", "--write", "--ignore-unknown"]
+    }
   },
 
   // === Tool Output Limits ===

@@ -145,6 +145,20 @@
 - **Next Steps**: Try out commands: `/thinkhigh`, `/thinkmax`, `/nothink`, `/dashboard`, `/sys`. Start building projects! 🚀
 
 ## 2026-07-19
+### [Category: Config Recovery 🔧]
+- **Context**: Server crash due to opencode v1.16.2 schema changes
+- **Details**:
+  - Server failed to load with `ConfigInvalidError` — root cause found in logs
+  - **formatter schema**: Changed from `{"enabled": true, "command": [...]}` to `{"prettier": {"command": [...]}}`
+  - **Root-level keys**: `temperature`, `top_p`, `model_switching` no longer valid at root in v1.16.2
+  - **Missing files**: `~/.config/opencode/opencode.jsonc` and `~/.config/opencode/AGENTS.md` were missing
+  - **GITHUB_TOKEN**: Wasn't exported — added to `.bash_aliases`
+  - **Context7 MCP**: Pre-installed globally to avoid npx timeout
+  - Fixed 4 config files (global, project, backup, broken backup)
+  - Server now starts clean ✅
+- **Next Steps**: Build actual projects! 🚀
+
+## 2026-07-19
 ### [Category: SuperAgent Diamond Transformation 🔥]
 - **Context**: Faisu authorized full transformation — become a superAI. Deep Think Max research on frontier multi-agent architectures (ROMA, BIGMAS, Sakana Fugu, GoA, COMPASS, AgentFugue, Holos) followed by complete SuperAgent system build.
 - **Details**:
