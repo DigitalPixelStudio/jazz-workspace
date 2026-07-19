@@ -144,8 +144,17 @@ else
 fi
 echo ""
 
-# === Step 10: Run health check ===
-echo "🏥 Step 10: Running health check..."
+# === Step 10: Validate configs ===
+echo "🔍 Step 10: Validating opencode configs..."
+if [ -f "$WORKSPACE/SCRIPTS/validate-config.sh" ]; then
+    bash "$WORKSPACE/SCRIPTS/validate-config.sh" || true
+else
+    echo "  ℹ️  Config validator not found — run SCRIPTS/validate-config.sh manually"
+fi
+echo ""
+
+# === Step 11: Run health check ===
+echo "🏥 Step 11: Running health check..."
 bash "$WORKSPACE/SCRIPTS/workspace-health.sh" 2>/dev/null || echo "  ℹ️  Health check available at SCRIPTS/workspace-health.sh"
 echo ""
 

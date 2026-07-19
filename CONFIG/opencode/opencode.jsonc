@@ -234,7 +234,7 @@
       "type": "local",
       "command": ["npx", "-y", "firecrawl-mcp"],
       "enabled": true,
-      "timeout": 10000,
+      "timeout": 30000,
       "env": {
         "FIRECRAWL_RETRY_MAX_ATTEMPTS": "3",
         "FIRECRAWL_RETRY_INITIAL_DELAY": "500"
@@ -243,7 +243,7 @@
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
-      "enabled": true,
+      "enabled": false,
       "timeout": 15000,
       "env": {
         "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
@@ -253,7 +253,7 @@
       "type": "local",
       "command": ["npx", "-y", "@upstash/context7-mcp"],
       "enabled": true,
-      "timeout": 15000
+      "timeout": 30000
     }
   },
   // Per-agent tool filtering — main session KEEPS all tools, subagents get selective access
