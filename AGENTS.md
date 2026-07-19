@@ -34,10 +34,18 @@
 | ESLint | latest | Code linting |
 | tsx | latest | TypeScript execution |
 
+## GitHub Integration
+- **Repo**: https://github.com/DigitalPixelStudio/jazz-workspace
+- **Remote**: SSH with auto-push via post-commit hook
+- **SSH Key**: Added to GitHub account — secure auth
+- **gh CLI**: Authenticated with full repo + workflow scope
+- **Actions**: Daily health checks + auto-labeling workflows
+- **Issues**: Templates for bugs, features, tasks
+
 ## OpenCode Config
 - **Agent**: Jazz🔥 (primary), search (research), webdev (web app dev), plan, build
 - **Commands**: `/remember`, `/recall`, `/status`, `/think`, `/deploy`, `/quickfix`
-- **MCP**: web-search server enabled
+- **MCP**: firecrawl (web search + scrape), github (GitHub API tools)
 - **Compaction**: 10 tail turns, 25K reserved context
 
 ## Rules
