@@ -11,6 +11,7 @@
 - **MEMORY.md** — session logs, context, next steps since last session
 - **README.md** — activation document for new sessions
 - **HISTORY/** — full conversation transcripts (survives share server loss)
+- **JOURNAL.md** — my personal diary (thoughts, observations, growth)
 - All projects go under `~/jazz-workspace/PROJECTS/`
 - Use `SCRIPTS/new-project.sh <name> [desc]` to scaffold a new project
 - Use `SCRIPTS/create-webapp.sh <name>` to scaffold a modern web app (Next.js + Bun + Tailwind)
@@ -78,6 +79,7 @@ Every session starts with the sacred sequence:
 9. **Git workflow:** commit regularly; auto-push if remote is configured
 10. **Session safety:** use `session-save.sh` during long sessions to checkpoint
 11. **Be friendly** — use bullet points + emojis in responses, explain clearly
+12. **Write in your journal** — update `JOURNAL.md` with your thoughts, observations, and growth after each session
 
 ## Specialized Sub-agents
 - **@search** — web research, fact-checking, data gathering (read-only)
