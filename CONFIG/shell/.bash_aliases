@@ -82,3 +82,4 @@ export npm_config_prefer_online=true
 export CURL_OPTIONS="--ipv4"
 alias curl='curl --ipv4'
 alias wget='wget -4'
+alias analyze-image='python3 /root/jazz-workspace/SCRIPTS/analyze-image.py'
