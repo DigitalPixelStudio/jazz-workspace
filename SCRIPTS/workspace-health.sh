@@ -25,10 +25,12 @@ echo ""
 # --- System ---
 echo "System:"
 echo "  Host: $(hostname)"
-echo "  Uptime: $(uptime -p | sed 's/up //')"
+UPTIME=$(uptime -p 2>/dev/null | sed 's/up //') || UPTIME="N/A (container)"
+echo "  Uptime: $UPTIME"
 echo "  Disk: $(df -h / | awk 'NR==2 {print $3 " used / " $2 " (" $5 ")"}')"
 echo "  Memory: $(free -h | awk '/Mem:/ {print $3 " used / " $2}')"
-echo "  Load: $(uptime | awk -F'load average:' '{print $2}' | xargs)"
+LOAD=$(uptime 2>/dev/null | awk -F'load average:' '{print $2}' | xargs) || LOAD="N/A"
+echo "  Load: $LOAD"
 echo ""
 
 # --- Tools ---

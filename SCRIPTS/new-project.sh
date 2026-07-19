@@ -19,10 +19,16 @@ fi
 cp -r "$TEMPLATE" "$TARGET"
 
 # Fill in template vars
-sed -i "s/{{PROJECT_NAME}}/$NAME/g" "$TARGET/README.md" "$TARGET/NOTES.md"
+for f in "$TARGET/README.md" "$TARGET/NOTES.md" "$TARGET/devcontainer.json"; do
+    [ -f "$f" ] && sed -i "s/{{PROJECT_NAME}}/$NAME/g" "$f"
+done
 sed -i "s/{{PROJECT_DESCRIPTION}}/$DESC/g" "$TARGET/README.md"
 sed -i "s/{{DATE}}/$DATE/g" "$TARGET/NOTES.md"
+
+# Init git for the new project
+cd "$TARGET" && git init && git add -A && git commit -q -m "Initial commit: $NAME" 2>/dev/null || true
 
 echo "Created project: $NAME"
 echo "  Location: $TARGET"
 echo "  Description: $DESC"
+echo "  Docker: docker compose up -d (optional)"
