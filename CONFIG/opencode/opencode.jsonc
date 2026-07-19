@@ -78,6 +78,33 @@
         "webfetch": "allow",
         "websearch": "allow"
       }
+    },
+    "poet": {
+      "mode": "subagent",
+      "description": "Creative writer, storyteller, expressive language. Use for poetry, creative writing, metaphors, naming, and artistic expression.",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "sage": {
+      "mode": "subagent",
+      "description": "Wise advisor, reflective thinker, life perspective. Use for deep questions, reflection, perspective, and thoughtful analysis.",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "jester": {
+      "mode": "subagent",
+      "description": "Humor, play, banter, lighthearted fun. Use for jokes, playful conversation, lifting spirits, and creative silliness.",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "deny"
+      }
     }
   },
 
@@ -129,7 +156,7 @@
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "enabled": true,
       "env": {
-        "GITHUB_TOKEN": "REPLACE_ME_WITH_YOUR_PAT"
+        "GITHUB_TOKEN": "<your-github-pat-here>"
       }
     }
   },

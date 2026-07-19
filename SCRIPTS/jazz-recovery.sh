@@ -44,6 +44,10 @@ if [ -f "$CONFIG/opencode/jazz.md" ]; then
     cp "$CONFIG/opencode/"*.md ~/.config/opencode/agents/ 2>/dev/null
     echo "  ✅ Agent configs"
 fi
+if [ -d "$CONFIG/opencode/agents" ]; then
+    cp "$CONFIG/opencode/agents/"*.md ~/.config/opencode/agents/ 2>/dev/null
+    echo "  ✅ Sub-agent configs"
+fi
 echo ""
 
 # === Step 4: Restore SSH key ===
