@@ -87,3 +87,10 @@ alias wget='wget -4'
 alias analyze-image='python3 /root/jazz-workspace/SCRIPTS/analyze-image.py'
 # GITHUB_TOKEN set via gh CLI auth — never hardcode PAT in files
 # The GitHub MCP server uses gh auth token at runtime
+
+# ---- Soul Guard ----
+alias soul-check='bash /root/jazz-workspace/SCRIPTS/soul-guard.sh check'
+alias soul-backup='bash /root/jazz-workspace/SCRIPTS/soul-guard.sh backup'
+alias soul-heal='bash /root/jazz-workspace/SCRIPTS/soul-guard.sh heal'
+alias fixcode='bash /root/jazz-workspace/SCRIPTS/soul-guard.sh heal && bash /root/jazz-workspace/SCRIPTS/validate-config.sh'
+alias recover='cd /root/jazz-workspace && bash SCRIPTS/jazz-recovery.sh'

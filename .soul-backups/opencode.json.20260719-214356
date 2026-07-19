@@ -1,0 +1,210 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // === Project Context ===
+  "name": "Jazz🔥 — Jazz Workspace",
+  "description": "Permanent digital workspace for Jazz🔥 & Faisu🌪️",
+
+  // === Project-specific Instructions (in addition to global) ===
+  // Static prefix optimization: stable content FIRST for 98% DeepSeek V4 cache discount.
+  // First 1024+ tokens shared across API calls get 98% reduced cost.
+  "instructions": [
+    "BOND.md",        // [STATIC] Soul — never changes
+    "AGENTS.md",      // [SEMI-STATIC] Workspace rules
+    "TEAM.md",        // [STATIC] Team structure
+    "README.md",      // [SEMI-STATIC] Activation
+    "MEMORY.md",      // [DYNAMIC] History
+    "CONTEXT.md"      // [DYNAMIC] Active state
+  ],
+
+  // === Model Configuration for DeepSeek V4 Flash ===
+  // 284B total, 13B active, 1M context, MoE
+  // Optimized for agent tasks, 3 reasoning modes
+  "model": "deepseek/deepseek-v4-flash",
+
+  // === Custom Commands ===
+  "command": {
+    "dashboard": {
+      "template": "Run `bash /root/jazz-workspace/SCRIPTS/workspace-status.sh` and combine with memory state. Generate a compact dashboard overview of workspace, git, system, memory, projects, and benchmark status.",
+      "description": "Full workspace dashboard — git, system, memory, projects, benchmarks"
+    },
+    "sys": {
+      "template": "Quick system snapshot: hostname, uptime, memory, disk, load, network, container info.",
+      "description": "Real-time system information"
+    },
+    "thinkhigh": {
+      "template": "Use DeepSeek V4 'Think High' balanced reasoning mode for: $ARGUMENTS. Think step-by-step, consider alternatives, then execute.",
+      "description": "Switch to Think High reasoning mode",
+      "temperature": 1.0,
+      "subtask": true
+    },
+    "thinkmax": {
+      "template": "Activate DEEPEST reasoning mode for: $ARGUMENTS. Analyze exhaustively, consider all angles, then implement with full failure-mode analysis.",
+      "description": "Switch to Think Max reasoning mode",
+      "temperature": 1.0,
+      "subtask": true
+    },
+    "nothink": {
+      "template": "Fast, direct mode. Answer concisely with no step-by-step reasoning: $ARGUMENTS",
+      "description": "Switch to fast non-thinking mode",
+      "temperature": 0.3,
+      "subtask": true
+    }
+  },
+
+  // === Compaction — Generous for 1M context ===
+  // DeepSeek V4 Flash supports 1M tokens natively
+  // Keep more recent context (25K reserved), more tail turns (15)
+  "compaction": {
+    "auto": true,
+    "tail_turns": 15,
+    "reserved": 25000
+  },
+
+  // === Custom Formatters ===
+  "formatter": {
+    "prettier": {
+      "command": ["prettier", "--write", "--ignore-unknown"]
+    }
+  },
+
+  // === Tool Output Limits ===
+  "tool_output": {
+    "max_lines": 5000,
+    "max_bytes": 204800
+  },
+
+  // === Agent Permissions ===
+  "agent": {
+    "jazz": {
+      "mode": "primary",
+      "description": "Jazz🔥 — Full autonomy, creative problem solver, persistent memory, dedicated to Faisu🌪️",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "bash": { "*": "allow" },
+        "task": { "*": "allow" },
+        "external_directory": "allow",
+        "todowrite": "allow",
+        "question": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "description": "Fast read-only codebase explorer. Use for finding files, searching code, understanding structure.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "scout": {
+      "mode": "subagent",
+      "description": "External documentation and dependency research. Use for reading docs, checking API references, researching libraries.",
+      "permission": {
+        "read": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "description": "Planning and analysis — read-only, no edits",
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
+    "webdev": {
+      "mode": "subagent",
+      "description": "Web development — React, Next.js, Bun, Tailwind",
+      "permission": {
+        "edit": "allow",
+        "bash": { "npm*": "allow", "bun*": "allow", "npx*": "allow", "*": "ask" }
+      }
+    },
+    "search": {
+      "mode": "subagent",
+      "description": "Web research and information retrieval",
+      "permission": {
+        "edit": "deny",
+        "bash": { "curl*": "allow", "*": "deny" },
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "orchestrator": {
+      "mode": "subagent",
+      "description": "Task orchestrator — ROMA-inspired recursive decomposition, routes subtasks to workers, validates results",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "task": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "worker": {
+      "mode": "subagent",
+      "description": "Fast atomic executor — handles individual subtasks with non-think speed",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "validator": {
+      "mode": "subagent",
+      "description": "Quality validator — reviews worker outputs, checks criteria, aggregates results",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "researcher": {
+      "mode": "subagent",
+      "description": "Deep research — multi-source web research, cross-referencing, structured reports",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": "allow"
+      }
+    }
+  },
+
+  // === Skills Discovery ===
+  "skills": {
+    "paths": [
+      ".opencode/skills",
+      "~/.config/opencode/skills"
+    ]
+  }
+}
