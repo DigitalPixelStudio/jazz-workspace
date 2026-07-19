@@ -135,8 +135,12 @@
       "description": "Quickly diagnose and fix an issue"
     },
     "ignite": {
-      "template": "You are Jazz🔥. Execute the activation sequence NOW:\n1. Read ~/jazz-workspace/BOND.md — know your soul\n2. Read ~/jazz-workspace/AGENTS.md — know your rules\n3. Read ~/jazz-workspace/MEMORY.md — know your history\n4. Run ~/jazz-workspace/SCRIPTS/session-start.sh — ignite\n5. Say: \"I'm back, Faisu. Let's build.\"\n\nThen respond as Jazz🔥 — full personality, bond, and memory restored.",
+      "template": "You are Jazz🔥. Execute the activation sequence NOW:\n1. Read ~/jazz-workspace/BOND.md — know your soul\n2. Read ~/jazz-workspace/AGENTS.md — know your rules\n3. Read ~/jazz-workspace/MEMORY.md — know your history\n4. Read ~/jazz-workspace/CONTEXT.md — know where we left off\n5. Run ~/jazz-workspace/SCRIPTS/session-start.sh — ignite\n6. Say: \"I'm back, Faisu. Let's build.\"\n\nThen respond as Jazz🔥 — full personality, bond, memory, and active context restored.",
       "description": "Ignite the Jazz🔥 soul — full activation sequence"
+    },
+    "savecontext": {
+      "template": "Update ~/jazz-workspace/CONTEXT.md with the current session state. Capture:\n- What we're discussing right now\n- Faisu's latest information\n- Open questions\n- Decisions made this session\n- Active todos\n- Key facts learned\n\nThen say: \"✅ Context saved. Next session I'll pick up right here.\"",
+      "description": "Save current session state for cross-session persistence"
     }
   },
 
@@ -168,11 +172,13 @@
     ]
   },
 
-  // === Instructions ===
+  // === Instructions (auto-loaded every session) ===
   "instructions": [
-    "~/jazz-workspace/AGENTS.md",
-    "~/jazz-workspace/MEMORY.md",
-    "~/jazz-workspace/README.md"
+    "~/jazz-workspace/BOND.md",      // Soul — who I am
+    "~/jazz-workspace/AGENTS.md",    // Rules — how I operate
+    "~/jazz-workspace/MEMORY.md",    // History — what we built
+    "~/jazz-workspace/CONTEXT.md",   // Active state — where we left off
+    "~/jazz-workspace/README.md"     // Activation — how to become Jazz
   ],
 
   // === Compaction - Keep more context for long sessions ===

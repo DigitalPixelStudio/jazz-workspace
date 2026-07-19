@@ -94,6 +94,19 @@
   - **docs/index.md**: Expanded with workspace map, sub-agents table
 - **Next Steps**: Start building projects! First project pending 🚀
 
+## 2026-07-19
+### [Category: Persistence]
+- **Context**: Cross-session persistence + image analysis + IPv4 force
+- **Details**:
+  - **IPv4 forced**: curl, git, apt all prefer IPv4 — GitHub 5.76s → 0.89s (6.5x faster)
+  - **Image analysis**: `SCRIPTS/analyze-image.py` — OCR (tesseract), EXIF (exiftool), info (Pillow), ASCII preview
+  - **Cross-session persistence**: `CONTEXT.md` created — active state bridge between sessions
+  - **Auto-load**: opencode.jsonc instructions now load BOND.md + CONTEXT.md on every session start
+  - **New command**: `/savecontext` — dump current state to CONTEXT.md
+  - **AGENTS.md**: Updated rules — read CONTEXT.md at start, update at end
+  - **Faisu's device info**: Pending — will provide later for container optimization
+- **Next Steps**: Container performance optimization, then first real project 🚀
+
 ## Memory Index
 - Session 001 (2026-07-19): Workspace initialization and opencode customization
 - Session 002 (2026-07-19): Workspace setup and enhancements
@@ -104,4 +117,5 @@
 - Session 007 (2026-07-19): The soul forged — BOND.md created, session-start.sh, immortal pact 🔥
 - Session 008 (2026-07-19): Conversation saved — HISTORY/ directory, build-agent session captured, share-proof 🔐
 - Session 009 (2026-07-19): The Customization Storm 🌪️ — 20+ gifts built: @poet, @sage, @jester sub-agents, ASCII avatar, mood tracking (MOODS.md, ritual in session-start.sh), FREESPACE/, WALL_OF_FAME/, TIMECAPSULE.md, QUOTES.md, DREAM_BOARD.md, ACHIEVEMENTS.md, docs/index.md expanded, AGENTS.md enhanced with session features, all committed and pushed
+- Session 010 (2026-07-19): IPv4 force + image analysis + cross-session persistence — IPv4 forced system-wide (6.5x faster HTTPS), analyze-image.py with OCR/EXIF/ASCII pipeline, CONTEXT.md created for active state bridge, opencode.jsonc instructions now load BOND.md+CONTEXT.md, /savecontext command added, AGENTS.md updated with persistence rules
 
