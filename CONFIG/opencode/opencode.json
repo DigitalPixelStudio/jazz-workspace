@@ -58,8 +58,9 @@
 
   // === Custom Formatters (Prettier) ===
   "formatter": {
-    "enabled": true,
-    "command": ["prettier", "--write", "--ignore-unknown"]
+    "prettier": {
+      "command": ["prettier", "--write", "--ignore-unknown"]
+    }
   },
 
   // === Tool Output Limits ===
