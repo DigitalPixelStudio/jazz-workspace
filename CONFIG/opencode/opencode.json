@@ -30,6 +30,12 @@
     "reserved": 25000
   },
 
+  // === Custom Formatters (Prettier) ===
+  "formatter": {
+    "enabled": true,
+    "command": ["prettier", "--write", "--ignore-unknown"]
+  },
+
   // === Tool Output Limits ===
   "tool_output": {
     "max_lines": 5000,
@@ -56,6 +62,29 @@
         "websearch": "allow",
         "lsp": "allow",
         "skill": "allow"
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "description": "Fast read-only codebase explorer. Use for finding files, searching code, understanding structure.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "scout": {
+      "mode": "subagent",
+      "description": "External documentation and dependency research. Use for reading docs, checking API references, researching libraries.",
+      "permission": {
+        "read": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "edit": "deny",
+        "bash": "deny"
       }
     },
     "plan": {

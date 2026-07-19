@@ -1,0 +1,13 @@
+// OpenCode state/temp files — never commit
+.opencode/plugins/*.log
+.opencode/.cache/
+*.opencode-state
+.tmp/
+
+// Keep plugin source but not compiled
+.opencode/plugins/*.js
+.opencode/plugins/node_modules/
+
+// Session artifacts
+session-*.json
+.last-context

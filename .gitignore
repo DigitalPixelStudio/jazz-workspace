@@ -7,3 +7,10 @@
 .DS_Store
 backups/
 .tmp/
+
+# OpenCode state
+.opencode/.cache/
+.opencode/plugins/*.js
+.opencode/plugins/node_modules/
+session-*.json
+.last-context

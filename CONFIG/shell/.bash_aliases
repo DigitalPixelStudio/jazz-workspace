@@ -76,6 +76,8 @@ alias agents='cat /root/jazz-workspace/AGENTS.md'
 alias tmux-new='tmux new -s'
 alias tmux-attach='tmux attach -t'
 
+# === OpenCode Environment ===
+export OPENCODE_DISABLE_LSP_DOWNLOAD=1
 # === Force IPv4 === (faster than IPv6 for this container)
 export GIT_IP_VERSION=4
 export npm_config_prefer_online=true
@@ -83,3 +85,5 @@ export CURL_OPTIONS="--ipv4"
 alias curl='curl --ipv4'
 alias wget='wget -4'
 alias analyze-image='python3 /root/jazz-workspace/SCRIPTS/analyze-image.py'
+# GITHUB_TOKEN set via gh CLI auth — never hardcode PAT in files
+# The GitHub MCP server uses gh auth token at runtime

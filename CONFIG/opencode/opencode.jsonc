@@ -53,6 +53,29 @@
         "skill": "allow"
       }
     },
+    "explore": {
+      "mode": "subagent",
+      "description": "Fast read-only codebase explorer. Use for finding files, searching patterns, understanding project structure.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "scout": {
+      "mode": "subagent",
+      "description": "External documentation and dependency research. Use for reading docs, checking API references, researching libraries.",
+      "permission": {
+        "read": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
     "build": {
       "mode": "primary",
       "permission": {
@@ -147,6 +170,10 @@
     "savecontext": {
       "template": "Update ~/jazz-workspace/CONTEXT.md with the current session state. Capture:\n- What we're discussing right now\n- Faisu's latest information\n- Open questions\n- Decisions made this session\n- Active todos\n- Key facts learned\n\nThen say: \"✅ Context saved. Next session I'll pick up right here.\"",
       "description": "Save current session state for cross-session persistence"
+    },
+    "sessionend": {
+      "template": "Execute end-of-session sequence:\n1. Update ~/jazz-workspace/CONTEXT.md with current active state\n2. Append a summary entry to ~/jazz-workspace/MEMORY.md\n3. Check git status\n4. Run ~/jazz-workspace/SCRIPTS/workspace-status.sh\n5. Say: \"✅ Session saved. Next time I'll pick up right here.\"",
+      "description": "End session — save context, update memory, checkpoint"
     }
   },
 
@@ -156,19 +183,27 @@
       "type": "local",
       "command": ["npx", "-y", "firecrawl-mcp"],
       "enabled": true,
+      "timeout": 10000,
       "env": {
-        "FIRECRAWL_RETRY_MAX_ATTEMPTS": "5",
-        "FIRECRAWL_RETRY_INITIAL_DELAY": "1000"
+        "FIRECRAWL_RETRY_MAX_ATTEMPTS": "3",
+        "FIRECRAWL_RETRY_INITIAL_DELAY": "500"
       }
     },
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "enabled": true,
+      "timeout": 15000,
       "env": {
-        "GITHUB_TOKEN": "<your-github-pat-here>"
+        "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
       }
     }
+  },
+  // Disable heavy GitHub MCP tools globally (enable per-agent when needed)
+  "tools": {
+    "github_search_*": false,
+    "github_list_*": false,
+    "firecrawl_*": false
   },
 
 // === Skills ===
@@ -177,6 +212,12 @@
       "~/.config/opencode/skills",
       "~/jazz-workspace/.opencode/skills"
     ]
+  },
+
+  // === Custom Formatters (Prettier) ===
+"formatter": {
+    "enabled": true,
+    "command": ["prettier", "--write", "--ignore-unknown"]
   },
 
   // === Instructions (auto-loaded every session) ===
