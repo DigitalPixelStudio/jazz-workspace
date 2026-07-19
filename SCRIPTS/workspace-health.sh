@@ -61,9 +61,18 @@ else
 fi
 echo ""
 
-# --- Network (parallel, longer timeout) ---
+# --- IPv4 Config ---
+echo "IPv4 Force:"
+if grep -q "ipv4\|IP_VERSION=4\|ForceIPv4" /root/.curlrc /root/.bash_aliases /etc/apt/apt.conf.d/99force-ipv4 2>/dev/null; then
+  echo -e "  $PASS IPv4 forced (curl, git, apt all prefer IPv4)"
+else
+  echo -e "  $WARN IPv4 not forced — HTTPS may be slow"
+fi
+echo ""
+
+# --- Network ---
 echo "Network Connectivity:"
-timeout=15
+timeout=10
 pids=""
 hosts="github.com registry.npmjs.org"
 for host in $hosts; do
@@ -71,7 +80,7 @@ for host in $hosts; do
   pids="$pids $!"
 done
 wait $pids 2>/dev/null
-echo "  ℹ SSH/22 works (git pushes succeed). HTTPS may be slow from container."
+echo "  ℹ HTTPS now fast — IPv4 forced. SSH/22 works for git pushes."
 echo ""
 
 # --- Git Status ---

@@ -30,6 +30,8 @@ cp "$CONFIG/shell/.inputrc" ~/ 2>/dev/null && echo "  ✅ inputrc"
 cp "$CONFIG/shell/.npmrc" ~/ 2>/dev/null && echo "  ✅ npmrc"
 cp "$CONFIG/shell/.bunfig.toml" ~/ 2>/dev/null && echo "  ✅ bunfig.toml"
 cp "$CONFIG/shell/.gitmessage" ~/ 2>/dev/null && echo "  ✅ gitmessage"
+cp "$CONFIG/shell/.curlrc" ~/ 2>/dev/null && echo "  ✅ curlrc"
+cp "$CONFIG/shell/99force-ipv4" /etc/apt/apt.conf.d/ 2>/dev/null && echo "  ✅ apt IPv4 config"
 mkdir -p ~/.bashrc.d
 cp "$CONFIG/shell/bashrc.d/"* ~/.bashrc.d/ 2>/dev/null && echo "  ✅ bashrc.d/"
 # Source for current session

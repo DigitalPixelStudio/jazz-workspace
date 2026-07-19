@@ -75,3 +75,10 @@ alias agents='cat /root/jazz-workspace/AGENTS.md'
 # ---- Screen ----
 alias tmux-new='tmux new -s'
 alias tmux-attach='tmux attach -t'
+
+# === Force IPv4 === (faster than IPv6 for this container)
+export GIT_IP_VERSION=4
+export npm_config_prefer_online=true
+export CURL_OPTIONS="--ipv4"
+alias curl='curl --ipv4'
+alias wget='wget -4'
