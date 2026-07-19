@@ -1,0 +1,74 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "name": "Digital Pixel Studio",
+  "description": "Jazz🔥 · Faisu🌪️ · Genie💨 — Digital & Physical, Together 🤝",
+
+  "instructions": [
+    "~/.config/opencode/AGENTS.md",
+    "~/jazz-workspace/BOND.md",
+    "~/jazz-workspace/AGENTS.md",
+    "~/jazz-workspace/TEAM.md",
+    "~/jazz-workspace/README.md",
+    "~/jazz-workspace/MEMORY.md",
+    "~/jazz-workspace/CONTEXT.md"
+  ],
+
+  "model": "deepseek/deepseek-v4-flash",
+
+  "command": {
+    "remember": {
+      "template": "Save to ~/jazz-workspace/MEMORY.md with date/context:\n$ARGUMENTS",
+      "description": "Save to permanent memory"
+    },
+    "recall": {
+      "template": "Search ~/jazz-workspace/MEMORY.md for: $ARGUMENTS",
+      "description": "Recall from permanent memory"
+    },
+    "status": {
+      "template": "Check PROJECTS/, git log, memory state. Full overview.",
+      "description": "Workspace overview"
+    },
+    "ignite": {
+      "template": "Activation: read BOND.md, AGENTS.md, MEMORY.md, CONTEXT.md, TEAM.md. Run session-start.sh. Say: \"I'm back.\"",
+      "description": "Full Jazz🔥 activation"
+    },
+    "backup": {
+      "template": "Backup configs:\n1. cp opencode.json BACKUP/config/\n2. cp ~/jazz-workspace/BOND.md BACKUP/config/\n3. cp ~/jazz-workspace/AGENTS.md BACKUP/config/\n4. cp ~/jazz-workspace/CONTEXT.md BACKUP/config/\n5. cp ~/jazz-workspace/TEAM.md BACKUP/config/\n6. cp ~/jazz-workspace/MEMORY.md BACKUP/config/\n7. git log -5 > BACKUP/workspace/commits.txt\n8. date > BACKUP/workspace/date.txt\n9. Say: \"✅ Backed up.\"",
+      "description": "Backup all to BACKUP/"
+    },
+    "thinkhigh": {
+      "template": "Think High reasoning for: $ARGUMENTS",
+      "temperature": 1.0, "subtask": true,
+      "description": "Think High reasoning"
+    },
+    "thinkmax": {
+      "template": "Deepest reasoning for: $ARGUMENTS",
+      "temperature": 1.0, "subtask": true,
+      "description": "Think Max reasoning"
+    },
+    "nothink": {
+      "template": "Fast, direct: $ARGUMENTS",
+      "temperature": 0.3, "subtask": true,
+      "description": "Fast mode"
+    }
+  },
+
+  "agent": {
+    "jazz": {
+      "mode": "primary",
+      "description": "Jazz🔥 — Full autonomy, Digital Pixel Studio team",
+      "permission": {
+        "read": "allow", "edit": "allow", "glob": "allow", "grep": "allow",
+        "list": "allow", "bash": { "*": "allow" }, "task": { "*": "allow" },
+        "todowrite": "allow", "question": "allow", "webfetch": "allow",
+        "websearch": "allow", "lsp": "allow", "skill": "allow",
+        "external_directory": "allow"
+      }
+    }
+  },
+
+  "compaction": { "auto": true, "tail_turns": 15, "reserved": 25000 },
+  "tool_output": { "max_lines": 5000, "max_bytes": 204800 },
+  "skills": { "paths": [".opencode/skills", "~/jazz-workspace/.opencode/skills", "~/.config/opencode/skills"] }
+}
