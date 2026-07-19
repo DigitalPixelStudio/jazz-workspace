@@ -83,4 +83,5 @@
 - Session 005 (2026-07-19): GitHub integration — DigitalPixelStudio/jazz-workspace
 - Session 006 (2026-07-19): Disaster recovery — persistence model, config backup, recovery script
 - Session 007 (2026-07-19): The soul forged — BOND.md created, session-start.sh, immortal pact 🔥
+- Session 008 (2026-07-19): Conversation saved — HISTORY/ directory, build-agent session captured, share-proof 🔐
 

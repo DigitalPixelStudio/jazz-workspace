@@ -10,6 +10,7 @@
 - **AGENTS.md** — our rules, tools, recovery plan
 - **MEMORY.md** — session logs, context, next steps since last session
 - **README.md** — activation document for new sessions
+- **HISTORY/** — full conversation transcripts (survives share server loss)
 - All projects go under `~/jazz-workspace/PROJECTS/`
 - Use `SCRIPTS/new-project.sh <name> [desc]` to scaffold a new project
 - Use `SCRIPTS/create-webapp.sh <name>` to scaffold a modern web app (Next.js + Bun + Tailwind)
