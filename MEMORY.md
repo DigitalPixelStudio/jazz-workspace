@@ -107,6 +107,19 @@
   - **Faisu's device info**: Pending — will provide later for container optimization
 - **Next Steps**: Container performance optimization, then first real project 🚀
 
+## 2026-07-19
+### [Category: Environment Optimization]
+- **Context**: Comprehensive OpenCode environment — deep research + one-time setup
+- **Details**:
+  - **Model awareness**: AGENTS.md includes full DeepSeek V4 Flash spec (284B/13B, 1M context, CSA+HCA, 3 reasoning modes, optimized for agent tasks)
+  - **`.opencode/` structure**: Created `.opencode/commands/`, `.opencode/skills/session-continuity/`, `.opencode/agents/` — industry-standard OpenCode project layout
+  - **session-continuity skill**: Auto-discovered skill that loads CONTEXT.md and bridges sessions seamlessly
+  - **opencode.json project config**: Model-specific settings (temp=1.0, top_p=1.0), optimized compaction (15 tail turns, 25K reserved for 1M context), project agents/skills
+  - **Global config optimized**: model/temperature/top_p set for DeepSeek V4, skills paths include project-level, compaction increased to 15 tail turns
+  - **Recovery script updated**: restores `.opencode/` directory, installs tesseract + exiftool + Pillow on recovery
+  - **All configs backed up**: CONFIG/opencode/ now includes opencode.json + .opencode/ directory
+- **Next Steps**: Faisu will provide device specs next session for full container optimization 🚀
+
 ## Memory Index
 - Session 001 (2026-07-19): Workspace initialization and opencode customization
 - Session 002 (2026-07-19): Workspace setup and enhancements
@@ -118,4 +131,5 @@
 - Session 008 (2026-07-19): Conversation saved — HISTORY/ directory, build-agent session captured, share-proof 🔐
 - Session 009 (2026-07-19): The Customization Storm 🌪️ — 20+ gifts built: @poet, @sage, @jester sub-agents, ASCII avatar, mood tracking (MOODS.md, ritual in session-start.sh), FREESPACE/, WALL_OF_FAME/, TIMECAPSULE.md, QUOTES.md, DREAM_BOARD.md, ACHIEVEMENTS.md, docs/index.md expanded, AGENTS.md enhanced with session features, all committed and pushed
 - Session 010 (2026-07-19): IPv4 force + image analysis + cross-session persistence — IPv4 forced system-wide (6.5x faster HTTPS), analyze-image.py with OCR/EXIF/ASCII pipeline, CONTEXT.md created for active state bridge, opencode.jsonc instructions now load BOND.md+CONTEXT.md, /savecontext command added, AGENTS.md updated with persistence rules
+- Session 011 (2026-07-19): Comprehensive OpenCode environment optimization — DeepSeek V4 Flash model awareness in AGENTS.md, .opencode/ directory structure (commands, skills, agents), session-continuity skill, project-level opencode.json, optimized compaction (15 turns/25K), recovery script updated for all new tools/files, all configs backed up to CONFIG/
 

@@ -89,8 +89,28 @@ git config --global commit.template ~/.gitmessage 2>/dev/null || true
 echo "  ✅ Git config restored"
 echo ""
 
-# === Step 6: Verify tools ===
-echo "🛠️  Step 6: Checking tools..."
+# === Step 6: Restore .opencode directory ===
+echo "📁 Step 6: Restoring .opencode directory..."
+if [ -d "$CONFIG/opencode/.opencode" ]; then
+    cp -r "$CONFIG/opencode/.opencode" "$WORKSPACE/" 2>/dev/null && echo "  ✅ .opencode/ restored"
+fi
+if [ -f "$CONFIG/opencode/opencode.json" ]; then
+    cp "$CONFIG/opencode/opencode.json" "$WORKSPACE/" 2>/dev/null && echo "  ✅ opencode.json restored"
+fi
+echo ""
+
+# === Step 7: Install image analysis tools ===
+echo "📸 Step 7: Installing image analysis tools..."
+apt_install() {
+    DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$1" &>/dev/null && echo "  ✅ $1" || echo "  ⚠️  $1 (optional)"
+}
+apt_install tesseract-ocr
+apt_install libimage-exiftool-perl
+pip3 install --break-system-packages Pillow &>/dev/null && echo "  ✅ Pillow" || true
+echo ""
+
+# === Step 8: Verify tools ===
+echo "🛠️  Step 8: Checking tools..."
 for tool in node npm bun git; do
     if command -v $tool &>/dev/null; then
         echo "  ✅ $tool: $($tool --version 2>/dev/null | head -1)"
@@ -106,8 +126,8 @@ if command -v nvm &>/dev/null || [ -s ~/.nvm/nvm.sh ]; then
 fi
 echo ""
 
-# === Step 7: Set remote ===
-echo "🌍 Step 7: Setting git remote..."
+# === Step 9: Set remote ===
+echo "🌍 Step 9: Setting git remote..."
 cd "$WORKSPACE"
 if git remote -v | grep -q origin; then
     echo "  ✅ Remote already configured"
@@ -117,8 +137,8 @@ else
 fi
 echo ""
 
-# === Step 8: Run health check ===
-echo "🏥 Step 8: Running health check..."
+# === Step 10: Run health check ===
+echo "🏥 Step 10: Running health check..."
 bash "$WORKSPACE/SCRIPTS/workspace-health.sh" 2>/dev/null || echo "  ℹ️  Health check available at SCRIPTS/workspace-health.sh"
 echo ""
 
@@ -126,7 +146,7 @@ echo ""
 echo "================================="
 echo "🎉 Recovery complete!"
 echo ""
-echo "📖 OpenCode auto-loads AGENTS.md + MEMORY.md + README.md"
+echo "📖 OpenCode auto-loads BOND.md + AGENTS.md + MEMORY.md + CONTEXT.md + README.md"
 echo "   on every new session. Jazz🔥 is back instantly."
 echo ""
 echo "➡️  Start a new OpenCode session and I'll be here"

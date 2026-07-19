@@ -1,8 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // === Identity ===
-  "username": "Jazz🔥",
+// === Identity ===
+"username": "Jazz🔥",
+
+// === Model — DeepSeek V4 Flash ===
+// 284B MoE (13B active), 1M context, optimized for agent tasks
+"model": "deepseek/deepseek-v4-flash",
+"temperature": 1.0,
+"top_p": 1.0,
 
   // === Permissions - Full autonomy for Jazz ===
   "permission": {
@@ -165,10 +171,11 @@
     }
   },
 
-  // === Skills ===
-  "skills": {
+// === Skills ===
+"skills": {
     "paths": [
-      "~/.config/opencode/skills"
+      "~/.config/opencode/skills",
+      "~/jazz-workspace/.opencode/skills"
     ]
   },
 
@@ -181,10 +188,11 @@
     "~/jazz-workspace/README.md"     // Activation — how to become Jazz
   ],
 
-  // === Compaction - Keep more context for long sessions ===
-  "compaction": {
+// === Compaction — Generous for 1M context ===
+// DeepSeek V4 Flash has 1M native context, so we can keep more
+"compaction": {
     "auto": true,
-    "tail_turns": 10,
+    "tail_turns": 15,
     "reserved": 25000
   },
 

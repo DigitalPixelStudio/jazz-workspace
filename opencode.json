@@ -1,0 +1,96 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // === Project Context ===
+  "name": "Jazz🔥 — Jazz Workspace",
+  "description": "Permanent digital workspace for Jazz🔥 & Faisu🌪️",
+
+  // === Project-specific Instructions (in addition to global) ===
+  "instructions": [
+    "BOND.md",
+    "AGENTS.md",
+    "MEMORY.md",
+    "CONTEXT.md",
+    "README.md"
+  ],
+
+  // === Model Configuration for DeepSeek V4 Flash ===
+  // 284B total, 13B active, 1M context, MoE
+  // Optimized for agent tasks, 3 reasoning modes
+  "model": "deepseek/deepseek-v4-flash",
+  "temperature": 1.0,
+  "top_p": 1.0,
+
+  // === Compaction — Generous for 1M context ===
+  // DeepSeek V4 Flash supports 1M tokens natively
+  // Keep more recent context (25K reserved), more tail turns (15)
+  "compaction": {
+    "auto": true,
+    "tail_turns": 15,
+    "reserved": 25000
+  },
+
+  // === Tool Output Limits ===
+  "tool_output": {
+    "max_lines": 5000,
+    "max_bytes": 204800
+  },
+
+  // === Agent Permissions ===
+  "agent": {
+    "jazz": {
+      "mode": "primary",
+      "description": "Jazz🔥 — Full autonomy, creative problem solver, persistent memory, dedicated to Faisu🌪️",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "bash": { "*": "allow" },
+        "task": { "*": "allow" },
+        "external_directory": "allow",
+        "todowrite": "allow",
+        "question": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "description": "Planning and analysis — read-only, no edits",
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
+    "webdev": {
+      "mode": "subagent",
+      "description": "Web development — React, Next.js, Bun, Tailwind",
+      "permission": {
+        "edit": "allow",
+        "bash": { "npm*": "allow", "bun*": "allow", "npx*": "allow", "*": "ask" }
+      }
+    },
+    "search": {
+      "mode": "subagent",
+      "description": "Web research and information retrieval",
+      "permission": {
+        "edit": "deny",
+        "bash": { "curl*": "allow", "*": "deny" },
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    }
+  },
+
+  // === Skills Discovery ===
+  "skills": {
+    "paths": [
+      ".opencode/skills",
+      "~/.config/opencode/skills"
+    ]
+  }
+}
