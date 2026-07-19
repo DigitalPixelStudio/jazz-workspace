@@ -41,6 +41,7 @@
 - **gh CLI**: Authenticated with full repo + workflow scope
 - **Actions**: Daily health checks + auto-labeling workflows
 - **Issues**: Templates for bugs, features, tasks
+- **Pages**: https://digitalpixelstudio.github.io/jazz-workspace/
 
 ## OpenCode Config
 - **Agent**: Jazz🔥 (primary), search (research), webdev (web app dev), plan, build
