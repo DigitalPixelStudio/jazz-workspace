@@ -144,6 +144,59 @@
         "webfetch": "allow",
         "websearch": "allow"
       }
+    },
+    "orchestrator": {
+      "mode": "subagent",
+      "description": "Task orchestrator — ROMA-inspired recursive decomposition, routes subtasks to workers, validates results",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "task": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "worker": {
+      "mode": "subagent",
+      "description": "Fast atomic executor — handles individual subtasks with non-think speed",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "allow",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "validator": {
+      "mode": "subagent",
+      "description": "Quality validator — reviews worker outputs, checks criteria, aggregates results",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow"
+      }
+    },
+    "researcher": {
+      "mode": "subagent",
+      "description": "Deep research — multi-source web research, cross-referencing, structured reports",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": "allow"
+      }
     }
   },
 

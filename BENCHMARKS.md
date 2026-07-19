@@ -26,3 +26,12 @@ bash SCRIPTS/benchmark.sh --full  # Full (includes large I/O)
 | Shell startup (bash) | 115ms |
 | **Composite Score** | **2319** |
 
+## Benchmark Run: 2026-07-19 18:30 UTC
+
+| File I/O (1000 writes) | 980ms |
+| Process spawn (100 forks) | 1426ms |
+| Git status | 308ms |
+| Search (rg workspace) | 170ms |
+| Shell startup (bash) | 75ms |
+| **Composite Score** | **2651** |
+

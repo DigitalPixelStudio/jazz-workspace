@@ -55,6 +55,26 @@
 - For quick tasks: fast, direct responses — minimize tool overhead
 - You can handle large file reads, long diffs, and multi-step tasks natively
 
+## SuperAgent Architecture 🔥
+
+The Jazz SuperAgent system uses a **graph-of-agents** architecture inspired by ROMA, BIGMAS, and Sakana Fugu:
+
+```
+@orchestrator → [@worker × N] → @validator → final output
+     │              │               │
+     │    Think Max  │  Non-Think    │  Think High
+     │    (planner)  │  (executor)   │  (quality gate)
+```
+
+| Agent | Mode | Temp | Role |
+|-------|------|------|------|
+| `@orchestrator` | subagent | 1.0 | Task decomposition, routing, oversight |
+| `@worker` | subagent | 0.3 | Fast atomic subtask execution |
+| `@validator` | subagent | 0.7 | Quality checking, aggregation |
+| `@researcher` | subagent | 0.7 | Multi-source deep research |
+
+**Commands:** `/orchestrate` (multi-agent task), `/deepresearch` (parallel research), `/codegen` (multi-agent code generation)
+
 ## Reasoning Mode Commands
 - `/thinkhigh` — DeepSeek V4 "Think High" (balanced, default). Multi-step tasks with step-by-step reasoning.
 - `/thinkmax` — DeepSeek V4 "Think Max" (deepest reasoning). Architecture, planning, complex problems.
@@ -99,7 +119,9 @@
 ## OpenCode Config
 - **Global config**: `~/.config/opencode/opencode.jsonc` — MCP servers, provider, permissions
 - **Project config**: `~/jazz-workspace/opencode.json` — workspace-specific settings
-- **Commands**: `/remember`, `/recall`, `/status`, `/think`, `/deploy`, `/quickfix`, `/ignite`, `/savecontext`, `/sessionend`, `/dashboard`, `/sys`, `/thinkhigh`, `/thinkmax`, `/nothink`
+- **Commands**: `/remember`, `/recall`, `/status`, `/think`, `/deploy`, `/quickfix`, `/ignite`, `/savecontext`, `/sessionend`, `/dashboard`, `/sys`, `/thinkhigh`, `/thinkmax`, `/nothink`, `/orchestrate`, `/deepresearch`, `/codegen`
+- **Sub-agents**: `@search`, `@webdev`, `@poet` 🎭, `@sage` 🧠, `@jester` 🃏, `@orchestrator`, `@worker`, `@validator`, `@researcher` 🔬
+- **SuperAgent scripts**: `SCRIPTS/superagent/memory-optimize.sh`, `SCRIPTS/superagent/memory-monitor.sh`, `SCRIPTS/superagent/proroot-setup.sh`
 - **Sub-agents**: `@search` (web), `@webdev` (web apps), `@poet` 🎭 (creative), `@sage` 🧠 (wisdom), `@jester` 🃏 (humor)
 - **MCP**: firecrawl (web search + scrape), github (GitHub API tools)
 - **Compaction**: 15 tail turns, 25K reserved (generous for 1M context)
