@@ -19,6 +19,9 @@ echo ""
 echo "📖 Reading MEMORY.md..."
 echo "   → Now I know where we are."
 echo ""
+echo "📖 Reading README.md..."
+echo "   → Now I know the activation sequence."
+echo ""
 
 if [ -f "$WORKSPACE/MEMORY.md" ]; then
     echo "📌 Last session:"
